@@ -3,61 +3,163 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            // 原有数据...
-            
-            // 新增分类系统
-            categories: {
-                '重度': ['轻策', '中策', '重策'],
-                '主题': ['自然', '历史', '科幻', '奇幻'],
-                '机制': ['行动规划', '引擎构筑', '成套收集', '区域控制']
+            games: [],
+            searchText: '',
+            selectedTags: new Set(),
+            categoryMap: {
+                weight: '🎚️ 重度',
+                theme: '🌍 主题',
+                mechanic: '⚙️ 机制'
             },
-            selectedCategories: {
-                '重度': null,
-                '主题': null,
-                '机制': null
-            }
+            selectedCategoryTags: {
+                weight: new Set(),
+                theme: new Set(),
+                mechanic: new Set()
+            },
+            isLoading: true,
+            error: null
         }
     },
     computed: {
+        // 组合过滤逻辑
         filteredGames() {
             return this.games.filter(game => {
-                // 原有过滤条件...
-                
-                // 新增分类过滤
-                const categoryMatch = Object.entries(this.selectedCategories)
-                    .every(([category, selected]) => 
-                        !selected || game[category]?.includes(selected)
+                // 文本搜索匹配（名称或自由标签）
+                const textMatch = this.searchText === '' || 
+                    game.名称.toLowerCase().includes(this.searchText.toLowerCase()) ||
+                    game.标签.some(tag => 
+                        !this.isCategoryTag(tag) &&
+                        tag.toLowerCase().includes(this.searchText.toLowerCase())
                     );
-                
-                return textMatch && tagMatch && categoryMatch;
+
+                // 自由标签匹配
+                const freeTagMatch = this.selectedTags.size === 0 || 
+                    Array.from(this.selectedTags).some(tag => 
+                        game.标签.includes(tag)
+                    );
+
+                // 分类标签匹配（AND逻辑）
+                const categoryMatch = Object.entries(this.selectedCategoryTags)
+                    .every(([category, tags]) => 
+                        tags.size === 0 || 
+                        game.标签.some(gameTag => {
+                            const [cat, val] = this.splitTag(gameTag);
+                            return cat === category && tags.has(val);
+                        })
+                    );
+
+                return textMatch && freeTagMatch && categoryMatch;
             });
+        },
+
+        // 当前激活筛选数量
+        activeFilterCount() {
+            return Array.from(this.selectedTags).length + 
+                Object.values(this.selectedCategoryTags)
+                    .reduce((acc, set) => acc + set.size, 0);
         }
     },
     methods: {
-        // 分类筛选方法
-        setCategoryFilter(category, tag) {
-            this.selectedCategories[category] = 
-                this.selectedCategories[category] === tag ? null : tag;
+        // 标签解析方法
+        splitTag(tag) {
+            const parts = tag.split(':');
+            if (parts.length === 1) return ['custom', parts[0].trim()];
+            return [parts[0].trim().toLowerCase(), parts[1].trim()];
         },
-        
-        // 标签样式生成
-        getCategoryClass(category) {
-            return {
-                'active': this.selectedCategories[category] === tag,
-                [category.toLowerCase()]: true
+
+        // 分类标签操作
+        toggleCategoryTag(category, tag) {
+            const selected = this.selectedCategoryTags[category];
+            selected.has(tag) ? selected.delete(tag) : selected.add(tag);
+        },
+
+        // 自由标签操作
+        toggleTag(tag) {
+            this.selectedTags.has(tag) ? 
+                this.selectedTags.delete(tag) : 
+                this.selectedTags.add(tag);
+        },
+
+        // 分类标签点击处理
+        toggleParsedTag(tag) {
+            const [category, value] = this.splitTag(tag);
+            if (this.categoryMap[category]) {
+                this.toggleCategoryTag(category, value);
             }
         },
-        
-        // 修改后的数据加载
+
+        // 获取分类标签
+        getCategoryTags(category) {
+            const tags = new Set();
+            this.games.forEach(game => {
+                game.标签.forEach(tag => {
+                    const [cat, val] = this.splitTag(tag);
+                    if (cat === category) tags.add(val);
+                });
+            });
+            return Array.from(tags).sort();
+        },
+
+        // 标签统计
+        getTagCount(category, targetTag) {
+            return this.games.reduce((count, game) => {
+                return count + game.标签.filter(tag => {
+                    const [cat, val] = this.splitTag(tag);
+                    return cat === category && val === targetTag;
+                }).length;
+            }, 0);
+        },
+
+        // 标签类型判断
+        isCategoryTag(tag) {
+            return tag.includes(':');
+        },
+
+        getTagCategory(tag) {
+            return this.splitTag(tag)[0];
+        },
+
+        getTagName(tag) {
+            return this.splitTag(tag)[1];
+        },
+
+        // 游戏可见性判断
+        isGameVisible(game) {
+            return Object.entries(this.selectedCategoryTags).every(([cat, tags]) => {
+                if (tags.size === 0) return true;
+                return game.标签.some(tag => {
+                    const [category, value] = this.splitTag(tag);
+                    return category === cat && tags.has(value);
+                });
+            });
+        },
+
+        // 数据加载
         async loadData() {
-            const response = await fetch('https://sheetdb.io/api/v1/anwk6x0uukfcf');
-            this.games = (await response.json()).map(item => ({
-                ...item,
-                // 将分类字段转为数组
-                重度: item.重度?.split(','),
-                主题: item.主题?.split(','),
-                机制: item.机制?.split(',')
-            }));
+            try {
+                const response = await fetch('https://sheetdb.io/api/v1/anwk6x0uukfcf');
+                if (!response.ok) throw new Error('数据加载失败');
+                
+                const rawData = await response.json();
+                this.games = rawData.map(item => ({
+                    ...item,
+                    标签: item.标签.split(',').map(t => t.trim()),
+                    
+                }));
+
+                // 本地缓存
+                localStorage.setItem('gamesCache', JSON.stringify(this.games));
+            } catch (error) {
+                console.error('数据加载失败:', error);
+                this.error = '数据加载失败，正在使用缓存...';
+                const cache = localStorage.getItem('gamesCache');
+                if (cache) this.games = JSON.parse(cache);
+            } finally {
+                this.isLoading = false;
+            }
         }
+    },
+    mounted() {
+        this.loadData();
     }
 }).mount('#app');

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>桌游收藏管理系统</title>
+    <title>Y&L的桌游室</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -21,50 +21,21 @@
 
         <!-- 分类标签筛选区 -->
         <div class="category-filter">
-            <!-- 重度分类 -->
-            <div class="category-group">
-                <h3 class="category-title">🎚️ 想玩什么重度的？</h3>
+            <div class="category-group" v-for="(_, category) in categoryMap">
+                <h3>{{ categoryMap[category] }}</h3>
                 <div class="tags">
                     <span
-                        v-for="weight in categories['重度']"
-                        :key="weight"
-                        class="tag weight-tag"
-                        :class="{ 'active': selectedCategories['重度'] === weight }"
-                        @click="toggleCategoryFilter('重度', weight)"
+                        v-for="tag in getCategoryTags(category)"
+                        :key="tag"
+                        class="tag"
+                        :class="[
+                            category,
+                            { 'active': selectedCategoryTags[category].has(tag) }
+                        ]"
+                        @click="toggleCategoryTag(category, tag)"
                     >
-                        {{ weight }}
-                    </span>
-                </div>
-            </div>
-
-            <!-- 主题分类 -->
-            <div class="category-group">
-                <h3 class="category-title">🌍 喜欢什么主题？</h3>
-                <div class="tags">
-                    <span
-                        v-for="theme in categories['主题']"
-                        :key="theme"
-                        class="tag theme-tag"
-                        :class="{ 'active': selectedCategories['主题'] === theme }"
-                        @click="toggleCategoryFilter('主题', theme)"
-                    >
-                        {{ theme }}
-                    </span>
-                </div>
-            </div>
-
-            <!-- 机制分类 -->
-            <div class="category-group">
-                <h3 class="category-title">⚙️ 想玩什么机制？</h3>
-                <div class="tags">
-                    <span
-                        v-for="mechanic in categories['机制']"
-                        :key="mechanic"
-                        class="tag mechanic-tag"
-                        :class="{ 'active': selectedCategories['机制'] === mechanic }"
-                        @click="toggleCategoryFilter('机制', mechanic)"
-                    >
-                        {{ mechanic }}
+                        {{ tag }}
+                        <span class="tag-count">({{ getTagCount(category, tag) }})</span>
                     </span>
                 </div>
             </div>
@@ -72,24 +43,19 @@
 
         <!-- 当前筛选状态 -->
         <div class="active-filters">
-            <div v-if="hasActiveFilters" class="active-tags">
-                当前筛选条件：
-                <span
-                    v-for="(value, category) in selectedCategories"
-                    v-if="value"
-                    class="active-tag"
-                    :class="category + '-tag'"
-                    @click="clearCategoryFilter(category)"
-                >
-                    {{ category }}: {{ value }} ×
-                </span>
-                <span 
-                    v-for="tag in Array.from(selectedTags)"
-                    class="active-tag"
-                    @click="toggleTag(tag)"
-                >
-                    {{ tag }} ×
-                </span>
+            <div v-if="activeFilterCount > 0" class="active-tags">
+                当前筛选：
+                <template v-for="category in Object.keys(categoryMap)">
+                    <span
+                        v-for="tag in selectedCategoryTags[category]"
+                        :key="tag"
+                        class="active-tag"
+                        :class="category"
+                        @click="toggleCategoryTag(category, tag)"
+                    >
+                        {{ categoryMap[category] }}: {{ tag }} ×
+                    </span>
+                </template>
             </div>
         </div>
 
@@ -107,7 +73,7 @@
                 >
                 <div class="game-info">
                     <h3>{{ game.名称 }}</h3>
-                    <div class="meta-info">
+                    <div class="meta">
                         <span>👥 {{ game.人数 }}</span>
                         <span>⏳ {{ game.时长 }}</span>
                         <span>⭐ {{ game.难度 }}</span>
@@ -115,22 +81,23 @@
                     
                     <!-- 游戏标签展示 -->
                     <div class="game-tags">
-                        <span 
-                            v-for="(tags, category) in gameCategories(game)"
-                            :key="category"
-                            class="tag"
-                            :class="[category + '-tag']"
-                        >
-                            {{ tags.join(' · ') }}
-                        </span>
-                        <span 
-                            v-for="(tag, index) in game.标签"
-                            :key="index"
-                            class="tag custom-tag"
-                            @click="toggleTag(tag)"
-                        >
-                            {{ tag }}
-                        </span>
+                        <template v-for="tag in game.标签">
+                            <span
+                                v-if="isCategoryTag(tag)"
+                                class="tag"
+                                :class="getTagCategory(tag)"
+                                @click="toggleParsedTag(tag)"
+                            >
+                                {{ getTagName(tag) }}
+                            </span>
+                            <span
+                                v-else
+                                class="tag custom"
+                                @click="toggleTag(tag)"
+                            >
+                                {{ tag }}
+                            </span>
+                        </template>
                     </div>
                 </div>
             </div>
