@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的桌游收藏馆</title>
+    <title>桌游收藏管理系统</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
     <div id="app">
-        <!-- 原有搜索框保持不变 -->
+        <!-- 搜索框 -->
         <div class="search-box">
             <input 
                 type="text" 
@@ -19,31 +19,87 @@
             >
         </div>
 
-        <!-- 新增标签筛选状态显示 -->
-        <div class="filter-status">
-            <!-- 原有其他内容保持不变 -->
-            
-            <!-- ===== 新增开始 ===== -->
-            <div v-if="selectedTags.size > 0" class="active-tags">
-                当前筛选标签：
+        <!-- 分类标签筛选区 -->
+        <div class="category-filter">
+            <!-- 重度分类 -->
+            <div class="category-group">
+                <h3 class="category-title">🎚️ 想玩什么重度的？</h3>
+                <div class="tags">
+                    <span
+                        v-for="weight in categories['重度']"
+                        :key="weight"
+                        class="tag weight-tag"
+                        :class="{ 'active': selectedCategories['重度'] === weight }"
+                        @click="toggleCategoryFilter('重度', weight)"
+                    >
+                        {{ weight }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- 主题分类 -->
+            <div class="category-group">
+                <h3 class="category-title">🌍 喜欢什么主题？</h3>
+                <div class="tags">
+                    <span
+                        v-for="theme in categories['主题']"
+                        :key="theme"
+                        class="tag theme-tag"
+                        :class="{ 'active': selectedCategories['主题'] === theme }"
+                        @click="toggleCategoryFilter('主题', theme)"
+                    >
+                        {{ theme }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- 机制分类 -->
+            <div class="category-group">
+                <h3 class="category-title">⚙️ 想玩什么机制？</h3>
+                <div class="tags">
+                    <span
+                        v-for="mechanic in categories['机制']"
+                        :key="mechanic"
+                        class="tag mechanic-tag"
+                        :class="{ 'active': selectedCategories['机制'] === mechanic }"
+                        @click="toggleCategoryFilter('机制', mechanic)"
+                    >
+                        {{ mechanic }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 当前筛选状态 -->
+        <div class="active-filters">
+            <div v-if="hasActiveFilters" class="active-tags">
+                当前筛选条件：
+                <span
+                    v-for="(value, category) in selectedCategories"
+                    v-if="value"
+                    class="active-tag"
+                    :class="category + '-tag'"
+                    @click="clearCategoryFilter(category)"
+                >
+                    {{ category }}: {{ value }} ×
+                </span>
                 <span 
-                    v-for="tag in Array.from(selectedTags)" 
+                    v-for="tag in Array.from(selectedTags)"
                     class="active-tag"
                     @click="toggleTag(tag)"
                 >
                     {{ tag }} ×
                 </span>
             </div>
-            <!-- ===== 新增结束 ===== -->
         </div>
 
-        <!-- 游戏列表区 -->
+        <!-- 游戏列表 -->
         <div class="game-list">
             <div 
-                v-for="game in filteredGames" 
+                v-for="game in filteredGames"
                 class="game-card"
+                :class="{ 'dimmed': !isGameVisible(game) }"
             >
-                <!-- 原有游戏封面和基本信息 -->
                 <img 
                     :src="game.封面图URL" 
                     :alt="game.名称" 
@@ -51,26 +107,30 @@
                 >
                 <div class="game-info">
                     <h3>{{ game.名称 }}</h3>
-                    <div class="meta">
+                    <div class="meta-info">
                         <span>👥 {{ game.人数 }}</span>
                         <span>⏳ {{ game.时长 }}</span>
-                        <span>⭐ {{ '★'.repeat(game.难度) }}</span>
+                        <span>⭐ {{ game.难度 }}</span>
                     </div>
                     
-                    <!-- ===== 新增标签展示区 ===== -->
-                    <div class="tags">
+                    <!-- 游戏标签展示 -->
+                    <div class="game-tags">
+                        <span 
+                            v-for="(tags, category) in gameCategories(game)"
+                            :key="category"
+                            class="tag"
+                            :class="[category + '-tag']"
+                        >
+                            {{ tags.join(' · ') }}
+                        </span>
                         <span 
                             v-for="(tag, index) in game.标签"
                             :key="index"
-                            class="game-tag"
-                            :class="{ 'active': selectedTags.has(tag) }"
+                            class="tag custom-tag"
                             @click="toggleTag(tag)"
                         >
                             {{ tag }}
                         </span>
-                        <div v-if="game.标签.length === 0" class="no-tags">
-                            🏷️ 暂无标签
-                        </div>
                     </div>
                 </div>
             </div>
