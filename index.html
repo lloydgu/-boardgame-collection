@@ -18,7 +18,16 @@
                 class="search-input"
             >
         </div>
-
+        <!-- 在搜索框下方添加人数筛选 -->
+        <div class="filter-section">
+            <input 
+                type="number" 
+                v-model.number="playerCount" 
+                placeholder="👥 输入人数筛选" 
+                min="1" 
+                class="player-input"
+            >
+        </div>
         <!-- 分类标签筛选区 -->
         <div class="category-filter">
             <div class="category-group" v-for="(_, category) in categoryMap">
@@ -76,7 +85,7 @@
                     <div class="meta">
                         <span>👥 {{ game.人数 }}</span>
                         <span>⏳ {{ game.时长 }}</span>
-                        <span>🧠 {{ game.难度 }}</span>
+                        <span>🏋️ {{ game.难度 }}</span>
                     </div>
                     
                     <!-- 游戏标签展示 -->

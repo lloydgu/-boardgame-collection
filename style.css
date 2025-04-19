@@ -126,6 +126,29 @@ body {
     margin: 20px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+/* 人数筛选样式 */
+.filter-section {
+    margin: 15px 0;
+    display: flex;
+    gap: 15px;
+}
+
+.player-input {
+    padding: 12px;
+    border: 2px solid #4CAF50;
+    border-radius: 25px;
+    width: 200px;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .filter-section {
+        flex-direction: column;
+    }
+    .player-input {
+        width: 100%;
+    }
+}
 
 .category-group {
     margin-bottom: 15px;

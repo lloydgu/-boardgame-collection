@@ -19,7 +19,8 @@ createApp({
                 other: new Set() 
             },
             isLoading: true,
-            error: null
+            error: null,
+            playerCount: null
         }
     },
     computed: {
@@ -33,6 +34,10 @@ createApp({
                         !this.isCategoryTag(tag) &&
                         tag.toLowerCase().includes(this.searchText.toLowerCase())
                     );
+
+            // 新增人数过滤
+                const playerMatch = !this.playerCount || 
+                    this.checkPlayerCount(game.人数, this.playerCount);
 
                 // 自由标签匹配
                 const freeTagMatch = this.selectedTags.size === 0 || 
@@ -50,7 +55,7 @@ createApp({
                         })
                     );
 
-                return textMatch && freeTagMatch && categoryMatch;
+                return textMatch && freeTagMatch && categoryMatch && playerMatch;
             });
         },
 
@@ -62,6 +67,16 @@ createApp({
         }
     },
     methods: {
+        // 添加人数验证方法
+        checkPlayerCount(range, target) {
+            // 提取所有数字（处理含中文的情况）
+            const numbers = (range.match(/\d+/g) || []).map(Number);
+            if (numbers.length === 0) return false;
+            
+            const min = Math.min(...numbers);
+            const max = Math.max(...numbers);
+            return target >= min && target <= max;
+        },
         // 标签解析方法
         splitTag(tag) {
             const parts = tag.split(':');
