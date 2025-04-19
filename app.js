@@ -7,9 +7,9 @@ createApp({
             searchText: '',
             selectedTags: new Set(),
             categoryMap: {
-                weight: '🎚️ 来点轻松的，还是玩个硬的？',
-                theme: '🌍 想去哪里，想看什么风景？',
-                mechanic: '⚙️ 整点什么活？'
+                weight: '🎚️ 重度',
+                theme: '🌍 主题',
+                mechanic: '⚙️ 机制'
             },
             selectedCategoryTags: {
                 weight: new Set(),
@@ -143,7 +143,8 @@ createApp({
                 const rawData = await response.json();
                 this.games = rawData.map(item => ({
                     ...item,
-                    标签: item.标签.split(',').map(t => t.trim())
+                    标签: item.标签.split(',').map(t => t.trim()),
+                    
                 }));
 
                 // 本地缓存
@@ -162,4 +163,3 @@ createApp({
         this.loadData();
     }
 }).mount('#app');
-
