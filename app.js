@@ -5,27 +5,29 @@ createApp({
         return {
             games: [],
             searchText: '',
+            playerCount: null,
             selectedTags: new Set(),
             categoryMap: {
-                weight: '🎚️ 重度',
-                theme: '🌍 主题',
-                mechanic: '⚙️ 机制'
+                weight: '🎚️ 来点轻松的，还是整点硬核的？',
+                theme: '🌍 想去哪里呀？',
+                mechanic: '⚙️ 整点什么活？',
+                other: '🌟 还有什么别的吩咐吗？'
             },
             selectedCategoryTags: {
                 weight: new Set(),
                 theme: new Set(),
-                mechanic: new Set()
+                mechanic: new Set(),
+                other: new Set()
             },
             isLoading: true,
             error: null
         }
     },
     computed: {
-        // 组合过滤逻辑
         filteredGames() {
             return this.games.filter(game => {
-                // 文本搜索匹配（名称或自由标签）
-                const textMatch = this.searchText === '' || 
+                // 文本搜索匹配
+                const textMatch = !this.searchText || 
                     game.名称.toLowerCase().includes(this.searchText.toLowerCase()) ||
                     game.标签.some(tag => 
                         !this.isCategoryTag(tag) &&
@@ -38,21 +40,23 @@ createApp({
                         game.标签.includes(tag)
                     );
 
-                // 分类标签匹配（AND逻辑）
+                // 分类标签匹配
                 const categoryMatch = Object.entries(this.selectedCategoryTags)
-                    .every(([category, tags]) => 
+                    .every(([cat, tags]) => 
                         tags.size === 0 || 
                         game.标签.some(gameTag => {
-                            const [cat, val] = this.splitTag(gameTag);
-                            return cat === category && tags.has(val);
+                            const [category, value] = this.splitTag(gameTag);
+                            return category === cat && tags.has(value);
                         })
                     );
 
-                return textMatch && freeTagMatch && categoryMatch;
+                // 人数匹配
+                const playerMatch = !this.playerCount || 
+                    this.checkPlayerCount(game.人数, this.playerCount);
+
+                return textMatch && freeTagMatch && categoryMatch && playerMatch;
             });
         },
-
-        // 当前激活筛选数量
         activeFilterCount() {
             return Array.from(this.selectedTags).length + 
                 Object.values(this.selectedCategoryTags)
@@ -60,27 +64,40 @@ createApp({
         }
     },
     methods: {
-        // 标签解析方法
+        // 人数验证方法
+        checkPlayerCount(range, target) {
+            const numbers = (range.match(/\d+/g) || []).map(Number);
+            if (numbers.length === 0) return false;
+            
+            const min = Math.min(...numbers);
+            const max = Math.max(...numbers);
+            return target >= min && target <= max;
+        },
+
+        // 标签处理方法
         splitTag(tag) {
             const parts = tag.split(':');
-            if (parts.length === 1) return ['custom', parts[0].trim()];
+            if (parts.length === 1) {
+                const existingCategories = ['weight', 'theme', 'mechanic'];
+                const isCategorized = existingCategories.some(cat => 
+                    this.getCategoryTags(cat).includes(tag)
+                );
+                return [isCategorized ? 'custom' : 'other', tag.trim()];
+            }
             return [parts[0].trim().toLowerCase(), parts[1].trim()];
         },
 
-        // 分类标签操作
         toggleCategoryTag(category, tag) {
             const selected = this.selectedCategoryTags[category];
             selected.has(tag) ? selected.delete(tag) : selected.add(tag);
         },
 
-        // 自由标签操作
         toggleTag(tag) {
             this.selectedTags.has(tag) ? 
                 this.selectedTags.delete(tag) : 
                 this.selectedTags.add(tag);
         },
 
-        // 分类标签点击处理
         toggleParsedTag(tag) {
             const [category, value] = this.splitTag(tag);
             if (this.categoryMap[category]) {
@@ -88,29 +105,31 @@ createApp({
             }
         },
 
-        // 获取分类标签
         getCategoryTags(category) {
-            const tags = new Set();
+            const tagCounts = {};
             this.games.forEach(game => {
                 game.标签.forEach(tag => {
                     const [cat, val] = this.splitTag(tag);
-                    if (cat === category) tags.add(val);
+                    if (cat === category) {
+                        tagCounts[val] = (tagCounts[val] || 0) + 1;
+                    }
                 });
             });
-            return Array.from(tags).sort();
+            
+            return Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1])
+                .map(item => item[0]);
         },
 
-        // 标签统计
-        getTagCount(category, targetTag) {
+        getTagCount(category, tag) {
             return this.games.reduce((count, game) => {
-                return count + game.标签.filter(tag => {
-                    const [cat, val] = this.splitTag(tag);
-                    return cat === category && val === targetTag;
+                return count + game.标签.filter(t => {
+                    const [cat, val] = this.splitTag(t);
+                    return cat === category && val === tag;
                 }).length;
             }, 0);
         },
 
-        // 标签类型判断
         isCategoryTag(tag) {
             return tag.includes(':');
         },
@@ -123,7 +142,6 @@ createApp({
             return this.splitTag(tag)[1];
         },
 
-        // 游戏可见性判断
         isGameVisible(game) {
             return Object.entries(this.selectedCategoryTags).every(([cat, tags]) => {
                 if (tags.size === 0) return true;
@@ -134,7 +152,6 @@ createApp({
             });
         },
 
-        // 数据加载
         async loadData() {
             try {
                 const response = await fetch('https://sheetdb.io/api/v1/anwk6x0uukfcf');
@@ -143,11 +160,10 @@ createApp({
                 const rawData = await response.json();
                 this.games = rawData.map(item => ({
                     ...item,
-                    标签: item.标签.split(',').map(t => t.trim()),
-                    
+                    标签: item.标签?.split(',').map(t => t.trim()) || [],
+                    人数: item.人数?.trim() || ''
                 }));
 
-                // 本地缓存
                 localStorage.setItem('gamesCache', JSON.stringify(this.games));
             } catch (error) {
                 console.error('数据加载失败:', error);
