@@ -5,13 +5,12 @@ createApp({
         return {
             games: [],
             searchText: '',
-            playerCount: null,
             selectedTags: new Set(),
             categoryMap: {
-                weight: '🎚️ 来点轻松的，还是整点硬核的？',
-                theme: '🌍 想去哪里呀？',
+                weight: '🎚️ 来点轻松的，还是玩个硬的？',
+                theme: '🌍 想去哪里，想看什么风景？',
                 mechanic: '⚙️ 整点什么活？',
-                other: '🌟 还有什么别的吩咐吗？'
+                other: '🌟 还有什么别的想法？'
             },
             selectedCategoryTags: {
                 weight: new Set(),
@@ -19,8 +18,7 @@ createApp({
                 mechanic: new Set(),
                 other: new Set()
             },
-            isLoading: true,
-            error: null
+            isLoading: true
         }
     },
     computed: {
@@ -50,31 +48,11 @@ createApp({
                         })
                     );
 
-                // 人数匹配
-                const playerMatch = !this.playerCount || 
-                    this.checkPlayerCount(game.人数, this.playerCount);
-
-                return textMatch && freeTagMatch && categoryMatch && playerMatch;
+                return textMatch && freeTagMatch && categoryMatch;
             });
-        },
-        activeFilterCount() {
-            return Array.from(this.selectedTags).length + 
-                Object.values(this.selectedCategoryTags)
-                    .reduce((acc, set) => acc + set.size, 0);
         }
     },
     methods: {
-        // 人数验证方法
-        checkPlayerCount(range, target) {
-            const numbers = (range.match(/\d+/g) || []).map(Number);
-            if (numbers.length === 0) return false;
-            
-            const min = Math.min(...numbers);
-            const max = Math.max(...numbers);
-            return target >= min && target <= max;
-        },
-
-        // 标签处理方法
         splitTag(tag) {
             const parts = tag.split(':');
             if (parts.length === 1) {
@@ -142,32 +120,20 @@ createApp({
             return this.splitTag(tag)[1];
         },
 
-        isGameVisible(game) {
-            return Object.entries(this.selectedCategoryTags).every(([cat, tags]) => {
-                if (tags.size === 0) return true;
-                return game.标签.some(tag => {
-                    const [category, value] = this.splitTag(tag);
-                    return category === cat && tags.has(value);
-                });
-            });
-        },
-
         async loadData() {
             try {
                 const response = await fetch('https://sheetdb.io/api/v1/anwk6x0uukfcf');
-                if (!response.ok) throw new Error('数据加载失败');
-                
                 const rawData = await response.json();
+                
                 this.games = rawData.map(item => ({
                     ...item,
                     标签: item.标签?.split(',').map(t => t.trim()) || [],
-                    人数: item.人数?.trim() || ''
+                    难度: Math.min(5, Math.max(1, Number(item.难度) || 3))
                 }));
 
                 localStorage.setItem('gamesCache', JSON.stringify(this.games));
             } catch (error) {
                 console.error('数据加载失败:', error);
-                this.error = '数据加载失败，正在使用缓存...';
                 const cache = localStorage.getItem('gamesCache');
                 if (cache) this.games = JSON.parse(cache);
             } finally {

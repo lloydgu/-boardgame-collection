@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>桌游收藏管理系统</title>
+    <title>Y&L的桌游室</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -15,27 +15,15 @@
             正在加载数据...
         </div>
 
-        <!-- 错误提示 -->
-        <div v-if="error" class="error">
-            {{ error }}
-        </div>
-
         <!-- 主内容区 -->
-        <div v-if="!isLoading && !error">
-            <!-- 搜索和人数筛选 -->
-            <div class="search-section">
+        <div v-if="!isLoading">
+            <!-- 搜索框 -->
+            <div class="search-box">
                 <input 
                     type="text" 
                     v-model="searchText" 
                     placeholder="🔍 搜索名称或标签..."
                     class="search-input"
-                >
-                <input
-                    type="number"
-                    v-model.number="playerCount"
-                    placeholder="👥 输入人数筛选"
-                    min="1"
-                    class="player-input"
                 >
             </div>
 
@@ -57,37 +45,11 @@
                 </div>
             </div>
 
-            <!-- 当前筛选状态 -->
-            <div class="active-filters">
-                <div v-if="activeFilterCount > 0" class="active-tags">
-                    当前筛选条件：
-                    <template v-for="category in Object.keys(categoryMap)">
-                        <span
-                            v-for="tag in selectedCategoryTags[category]"
-                            :key="tag"
-                            class="active-tag"
-                            :class="category"
-                            @click="toggleCategoryTag(category, tag)"
-                        >
-                            {{ categoryMap[category] }}: {{ tag }} ×
-                        </span>
-                    </template>
-                    <span 
-                        v-for="tag in selectedTags"
-                        class="active-tag custom"
-                        @click="toggleTag(tag)"
-                    >
-                        {{ tag }} ×
-                    </span>
-                </div>
-            </div>
-
             <!-- 游戏列表 -->
             <div class="game-list">
                 <div 
                     v-for="game in filteredGames"
                     class="game-card"
-                    :class="{ 'dimmed': !isGameVisible(game) }"
                 >
                     <img 
                         :src="game.封面图URL" 
