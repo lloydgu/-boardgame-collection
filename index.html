@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的桌游收藏馆</title>
     <link rel="stylesheet" href="style.css">
+    <!-- 引入Vue3 -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
@@ -14,28 +14,29 @@
             <input 
                 type="text" 
                 v-model="searchText" 
-                placeholder="🔍 搜索名称或标签..."
+                placeholder="搜索游戏名称或标签..."
                 class="search-input"
             >
         </div>
 
-        <!-- 已选标签展示 -->
-        <div class="active-tags" v-if="selectedTags.size > 0">
-            当前筛选：
+        <!-- 标签过滤器 -->
+        <div class="tag-filter">
             <span 
-                v-for="tag in Array.from(selectedTags)" 
-                class="active-tag"
-                @click="removeTag(tag)"
+                v-for="tag in allTags"
+                :class="{ 'active': selectedTags.has(tag) }"
+                @click="toggleTag(tag)"
+                class="tag"
             >
-                {{ tag }} ×
+                {{ tag }}
             </span>
         </div>
 
-        <!-- 游戏列表 -->
+        <!-- 游戏展示区 -->
         <div class="game-list">
             <div 
                 v-for="game in filteredGames" 
                 class="game-card"
+                @click="showDetail(game)"
             >
                 <img 
                     :src="game.封面图URL" 
@@ -48,22 +49,6 @@
                         <span>👥 {{ game.人数 }}</span>
                         <span>⏳ {{ game.时长 }}</span>
                         <span>⭐ {{ '★'.repeat(game.难度) }}</span>
-                    </div>
-                    
-                    <!-- 标签展示区 -->
-                    <div class="tags">
-                        <span 
-                            v-for="(tag, index) in game.标签" 
-                            :key="index"
-                            class="tag"
-                            :class="{ 'active': selectedTags.has(tag) }"
-                            @click="toggleTag(tag)"
-                        >
-                            {{ tag }}
-                        </span>
-                        <div v-if="game.标签.length === 0" class="no-tags">
-                            🏷️ 暂无标签
-                        </div>
                     </div>
                 </div>
             </div>

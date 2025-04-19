@@ -4,7 +4,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background: #f5f5f5;
 }
 
 .search-box {
@@ -17,10 +16,27 @@ body {
     border: 2px solid #4CAF50;
     border-radius: 25px;
     font-size: 16px;
-    box-sizing: border-box;
 }
 
-/* 游戏列表 */
+.tag-filter {
+    margin: 15px 0;
+}
+
+.tag {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tag.active {
+    background: #4CAF50;
+    color: white;
+}
+
 .game-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -28,15 +44,15 @@ body {
 }
 
 .game-card {
-    background: white;
+    border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.2s;
 }
 
 .game-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .game-cover {
@@ -54,61 +70,4 @@ body {
     justify-content: space-between;
     margin-top: 10px;
     color: #666;
-    font-size: 0.9em;
-}
-
-/* 标签系统 */
-.tags {
-    margin-top: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.tag {
-    display: inline-block;
-    padding: 6px 12px;
-    background: #e3f2fd;
-    border: 1px solid #90caf9;
-    border-radius: 15px;
-    font-size: 0.85em;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.tag.active {
-    background: #4CAF50;
-    color: white;
-    border-color: #45a049;
-}
-
-.tag:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.active-tags {
-    margin: 15px 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.active-tag {
-    background: #4CAF50;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.active-tag:hover {
-    background: #45a049;
-}
-
-.no-tags {
-    color: #999;
-    font-size: 0.9em;
-    font-style: italic;
 }
