@@ -92,16 +92,23 @@ createApp({
 
         // 获取分类标签
         getCategoryTags(category) {
-            const tags = new Set();
+            const tagCounts = {};
+            
+            // 统计标签出现次数
             this.games.forEach(game => {
                 game.标签.forEach(tag => {
                     const [cat, val] = this.splitTag(tag);
-                    if (cat === category) tags.add(val);
+                    if (cat === category) {
+                        tagCounts[val] = (tagCounts[val] || 0) + 1;
+                    }
                 });
             });
-            return Array.from(tags).sort();
+        
+            // 转换为数组并排序
+            return Object.entries(tagCounts)
+                .sort((a, b) => b[1] - a[1]) // 按次数降序
+                .map(item => item[0]);       // 只返回标签名称
         },
-
         // 标签统计
         getTagCount(category, targetTag) {
             return this.games.reduce((count, game) => {
