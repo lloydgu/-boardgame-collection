@@ -9,12 +9,14 @@ createApp({
             categoryMap: {
                 weight: '🎚️ 重度',
                 theme: '🌍 主题',
-                mechanic: '⚙️ 机制'
+                mechanic: '⚙️ 机制',
+                other: '🌟 其他'
             },
             selectedCategoryTags: {
                 weight: new Set(),
                 theme: new Set(),
-                mechanic: new Set()
+                mechanic: new Set(),
+                other: new Set()
             },
             isLoading: true,
             error: null
