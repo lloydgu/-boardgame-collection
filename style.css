@@ -71,3 +71,48 @@ body {
     margin-top: 10px;
     color: #666;
 }
+
+/* 标签系统样式 */
+.tags {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.game-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-radius: 15px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.game-tag.active {
+    background: #4CAF50;
+    color: white;
+    border-color: #388e3c;
+}
+
+.active-tags {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.active-tag {
+    background: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.active-tag:hover {
+    background: #45a049;
+}
