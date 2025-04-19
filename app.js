@@ -9,23 +9,23 @@ createApp({
             categoryMap: {
                 weight: '🎚️ 来点轻松的，还是玩个硬的？',
                 theme: '🌍 想去哪里，想看什么风景？',
-                mechanic: '⚙️ 整点什么活？',
-                other: '🌟 还有什么别的想法？'
+                mechanic: '⚙️ 整点什么活？'
             },
             selectedCategoryTags: {
                 weight: new Set(),
                 theme: new Set(),
-                mechanic: new Set(),
-                other: new Set()
+                mechanic: new Set()
             },
-            isLoading: true
+            isLoading: true,
+            error: null
         }
     },
     computed: {
+        // 组合过滤逻辑
         filteredGames() {
             return this.games.filter(game => {
-                // 文本搜索匹配
-                const textMatch = !this.searchText || 
+                // 文本搜索匹配（名称或自由标签）
+                const textMatch = this.searchText === '' || 
                     game.名称.toLowerCase().includes(this.searchText.toLowerCase()) ||
                     game.标签.some(tag => 
                         !this.isCategoryTag(tag) &&
@@ -38,44 +38,49 @@ createApp({
                         game.标签.includes(tag)
                     );
 
-                // 分类标签匹配
+                // 分类标签匹配（AND逻辑）
                 const categoryMatch = Object.entries(this.selectedCategoryTags)
-                    .every(([cat, tags]) => 
+                    .every(([category, tags]) => 
                         tags.size === 0 || 
                         game.标签.some(gameTag => {
-                            const [category, value] = this.splitTag(gameTag);
-                            return category === cat && tags.has(value);
+                            const [cat, val] = this.splitTag(gameTag);
+                            return cat === category && tags.has(val);
                         })
                     );
 
                 return textMatch && freeTagMatch && categoryMatch;
             });
+        },
+
+        // 当前激活筛选数量
+        activeFilterCount() {
+            return Array.from(this.selectedTags).length + 
+                Object.values(this.selectedCategoryTags)
+                    .reduce((acc, set) => acc + set.size, 0);
         }
     },
     methods: {
+        // 标签解析方法
         splitTag(tag) {
             const parts = tag.split(':');
-            if (parts.length === 1) {
-                const existingCategories = ['weight', 'theme', 'mechanic'];
-                const isCategorized = existingCategories.some(cat => 
-                    this.getCategoryTags(cat).includes(tag)
-                );
-                return [isCategorized ? 'custom' : 'other', tag.trim()];
-            }
+            if (parts.length === 1) return ['custom', parts[0].trim()];
             return [parts[0].trim().toLowerCase(), parts[1].trim()];
         },
 
+        // 分类标签操作
         toggleCategoryTag(category, tag) {
             const selected = this.selectedCategoryTags[category];
             selected.has(tag) ? selected.delete(tag) : selected.add(tag);
         },
 
+        // 自由标签操作
         toggleTag(tag) {
             this.selectedTags.has(tag) ? 
                 this.selectedTags.delete(tag) : 
                 this.selectedTags.add(tag);
         },
 
+        // 分类标签点击处理
         toggleParsedTag(tag) {
             const [category, value] = this.splitTag(tag);
             if (this.categoryMap[category]) {
@@ -83,31 +88,29 @@ createApp({
             }
         },
 
+        // 获取分类标签
         getCategoryTags(category) {
-            const tagCounts = {};
+            const tags = new Set();
             this.games.forEach(game => {
                 game.标签.forEach(tag => {
                     const [cat, val] = this.splitTag(tag);
-                    if (cat === category) {
-                        tagCounts[val] = (tagCounts[val] || 0) + 1;
-                    }
+                    if (cat === category) tags.add(val);
                 });
             });
-            
-            return Object.entries(tagCounts)
-                .sort((a, b) => b[1] - a[1])
-                .map(item => item[0]);
+            return Array.from(tags).sort();
         },
 
-        getTagCount(category, tag) {
+        // 标签统计
+        getTagCount(category, targetTag) {
             return this.games.reduce((count, game) => {
-                return count + game.标签.filter(t => {
-                    const [cat, val] = this.splitTag(t);
-                    return cat === category && val === tag;
+                return count + game.标签.filter(tag => {
+                    const [cat, val] = this.splitTag(tag);
+                    return cat === category && val === targetTag;
                 }).length;
             }, 0);
         },
 
+        // 标签类型判断
         isCategoryTag(tag) {
             return tag.includes(':');
         },
@@ -120,20 +123,34 @@ createApp({
             return this.splitTag(tag)[1];
         },
 
+        // 游戏可见性判断
+        isGameVisible(game) {
+            return Object.entries(this.selectedCategoryTags).every(([cat, tags]) => {
+                if (tags.size === 0) return true;
+                return game.标签.some(tag => {
+                    const [category, value] = this.splitTag(tag);
+                    return category === cat && tags.has(value);
+                });
+            });
+        },
+
+        // 数据加载
         async loadData() {
             try {
                 const response = await fetch('https://sheetdb.io/api/v1/anwk6x0uukfcf');
-                const rawData = await response.json();
+                if (!response.ok) throw new Error('数据加载失败');
                 
+                const rawData = await response.json();
                 this.games = rawData.map(item => ({
                     ...item,
-                    标签: item.标签?.split(',').map(t => t.trim()) || [],
-                    难度: Math.min(5, Math.max(1, Number(item.难度) || 3))
+                    标签: item.标签.split(',').map(t => t.trim())
                 }));
 
+                // 本地缓存
                 localStorage.setItem('gamesCache', JSON.stringify(this.games));
             } catch (error) {
                 console.error('数据加载失败:', error);
+                this.error = '数据加载失败，正在使用缓存...';
                 const cache = localStorage.getItem('gamesCache');
                 if (cache) this.games = JSON.parse(cache);
             } finally {
@@ -145,3 +162,4 @@ createApp({
         this.loadData();
     }
 }).mount('#app');
+

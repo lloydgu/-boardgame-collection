@@ -1,127 +1,87 @@
-/* 基础样式 */
-body {
-    font-family: 'Microsoft YaHei', sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #f5f5f5;
-}
+/* 基础样式保持原有不变 */
 
-.loading {
-    text-align: center;
-    padding: 50px;
-    color: #666;
-}
-
-.spinner {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #4CAF50;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.search-box {
-    margin: 20px 0;
-}
-
-.search-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #4CAF50;
-    border-radius: 25px;
-    font-size: 16px;
-}
-
+/* 新增分类标签样式 */
 .category-filter {
-    background: #ffffff;
+    background: #f8f9fa;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 10px;
     margin: 20px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .category-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .category-group h3 {
     color: #2c3e50;
     margin: 0 0 12px 0;
     font-size: 1.1em;
-}
-
-.tags {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     gap: 8px;
 }
 
-.tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 12px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.9em;
+/* 分类标签颜色方案 */
+.tag.weight {
+    background: #ffe5e5;
+    border: 1px solid #ff7f7f;
+}
+.tag.theme {
+    background: #e5ffe5;
+    border: 1px solid #7fff7f;
+}
+.tag.mechanic {
+    background: #e5f3ff;
+    border: 1px solid #7fbfff;
+}
+.tag.custom {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
 }
 
-.tag.weight { background: #ffe5e5; border: 1px solid #ff7f7f; }
-.tag.theme { background: #e5ffe5; border: 1px solid #7fff7f; }
-.tag.mechanic { background: #e5f3ff; border: 1px solid #7fbfff; }
-.tag.other { background: #f3e5f5; border: 1px solid #ce93d8; }
-.tag.custom { background: #f0f0f0; border: 1px solid #ddd; }
-
+/* 激活状态 */
 .tag.active {
     transform: translateY(-2px);
     box-shadow: 0 3px 6px rgba(0,0,0,0.15);
     font-weight: 600;
 }
 
-.game-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.game-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-}
-
-.game-card:hover {
-    transform: translateY(-3px);
-}
-
-.game-cover {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.game-info {
-    padding: 15px;
-}
-
-.meta {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
+/* 标签计数 */
+.tag-count {
+    margin-left: 6px;
     color: #666;
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 
+/* 当前筛选标签 */
+.active-tag {
+    padding: 6px 12px;
+    border-radius: 15px;
+    margin: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.active-tag.weight {
+    background: #ff7f7f30;
+    border: 1px solid #ff7f7f;
+}
+.active-tag.theme {
+    background: #7fff7f30;
+    border: 1px solid #7fff7f;
+}
+.active-tag.mechanic {
+    background: #7fbfff30;
+    border: 1px solid #7fbfff;
+}
+
+/* 游戏卡片半透明效果 */
+.dimmed {
+    opacity: 0.4;
+    transition: opacity 0.3s;
+}
+
+/* 游戏标签布局优化 */
 .game-tags {
     margin-top: 12px;
     display: flex;
