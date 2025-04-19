@@ -3,65 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的桌游收藏馆 </title>
+    <title>我的桌游收藏馆</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
     <div id="app">
-        <!-- 搜索和过滤区域 -->
-        <div class="control-bar">
+        <!-- 搜索框 -->
+        <div class="search-box">
             <input 
                 type="text" 
                 v-model="searchText" 
                 placeholder="🔍 搜索名称或标签..."
                 class="search-input"
             >
-            <div class="active-tags" v-if="selectedTags.size > 0">
-                当前筛选：
-                <span 
-                    v-for="tag in Array.from(selectedTags)" 
-                    class="active-tag"
-                    @click="removeTag(tag)"
-                >
-                    {{ tag }} ×
-                </span>
-            </div>
         </div>
 
-        <!-- 游戏展示区 -->
+        <!-- 已选标签展示 -->
+        <div class="active-tags" v-if="selectedTags.size > 0">
+            当前筛选：
+            <span 
+                v-for="tag in Array.from(selectedTags)" 
+                class="active-tag"
+                @click="removeTag(tag)"
+            >
+                {{ tag }} ×
+            </span>
+        </div>
+
+        <!-- 游戏列表 -->
         <div class="game-list">
             <div 
                 v-for="game in filteredGames" 
                 class="game-card"
-                :class="{ 'dimmed': !isGameVisible(game) }"
             >
                 <img 
-                    :data-src="game.封面图URL" 
-                    class="lazyload game-cover"
-                    :alt="game.名称"
+                    :src="game.封面图URL" 
+                    :alt="game.名称" 
+                    class="game-cover"
                 >
                 <div class="game-info">
                     <h3>{{ game.名称 }}</h3>
                     <div class="meta">
                         <span>👥 {{ game.人数 }}</span>
                         <span>⏳ {{ game.时长 }}</span>
-                        <span>⭐ {{ '★'.repeat(Math.round(game.难度)) }}</span>
+                        <span>⭐ {{ '★'.repeat(game.难度) }}</span>
                     </div>
                     
-                    <!-- 新增标签区域 -->
-                    <div class="tag-cloud">
+                    <!-- 标签展示区 -->
+                    <div class="tags">
                         <span 
                             v-for="(tag, index) in game.标签" 
                             :key="index"
-                            class="game-tag"
-                            :style="tagStyle(tag)"
-                            @click.stop="toggleTag(tag)"
+                            class="tag"
+                            :class="{ 'active': selectedTags.has(tag) }"
+                            @click="toggleTag(tag)"
                         >
                             {{ tag }}
-                            <span class="tag-count">
-                                {{ tagCounts[tag] || 0 }}
-                            </span>
                         </span>
                         <div v-if="game.标签.length === 0" class="no-tags">
                             🏷️ 暂无标签

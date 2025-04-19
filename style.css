@@ -1,34 +1,94 @@
-/* 新增标签相关样式 */
-.tag-cloud {
+/* 基础样式 */
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.search-box {
+    margin: 20px 0;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #4CAF50;
+    border-radius: 25px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* 游戏列表 */
+.game-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+}
+
+.game-cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.game-info {
+    padding: 15px;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* 标签系统 */
+.tags {
     margin-top: 15px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
 }
 
-.game-tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 5px 12px;
+.tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
     border-radius: 15px;
     font-size: 0.85em;
     cursor: pointer;
     transition: all 0.2s;
-    border: 1px solid;
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(2px);
 }
 
-.tag-count {
-    margin-left: 6px;
-    padding: 2px 6px;
-    border-radius: 8px;
-    background: rgba(0,0,0,0.1);
-    font-size: 0.8em;
+.tag.active {
+    background: #4CAF50;
+    color: white;
+    border-color: #45a049;
+}
+
+.tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .active-tags {
-    margin-top: 10px;
+    margin: 15px 0;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -37,19 +97,14 @@
 .active-tag {
     background: #4CAF50;
     color: white;
-    padding: 5px 10px;
-    border-radius: 12px;
+    padding: 6px 12px;
+    border-radius: 15px;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .active-tag:hover {
     background: #45a049;
-}
-
-.dimmed {
-    opacity: 0.4;
-    transition: opacity 0.3s;
 }
 
 .no-tags {
