@@ -414,3 +414,56 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* 筛选按钮样式 */
+.filter-control {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.filter-btn {
+    padding: 12px 35px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    background: #45a049;
+}
+
+.filter-btn.active {
+    background: #388e3c;
+    padding-right: 50px;
+}
+
+.badge {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    color: #388e3c;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+}
+
+@media (max-width: 768px) {
+    .filter-btn {
+        width: 100%;
+        padding: 15px;
+    }
+}

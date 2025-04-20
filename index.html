@@ -80,9 +80,23 @@
                 </template>
             </div>
         </div>
-
+        <!-- 新增筛选按钮 -->
+        <div class="filter-control">
+            <button 
+                class="filter-btn"
+                :class="{ 'active': filtersApplied }"
+                @click="applyFilters"
+            >
+                {{ filtersApplied ? '已应用筛选' : '开始筛选' }}
+                <span class="badge">{{ activeFilterCount }}</span>
+            </button>
+        </div>
         <!-- 游戏列表 -->
         <div class="game-list">
+            <div 
+            v-for="game in displayedGames"
+            class="game-card"
+        >
             <div 
                 v-for="game in filteredGames"
                 class="game-card"

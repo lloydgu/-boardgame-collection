@@ -29,6 +29,8 @@ createApp({
             isLoading: true,
             error: null,
             playerCount: null,
+            displayedGames: [],
+            filtersApplied: false
             
         }
     },
@@ -76,7 +78,19 @@ createApp({
         }
     },
     methods: {
-        
+        applyFilters() {
+            this.displayedGames = this.filteredGames;
+            this.filtersApplied = true;
+        },
+        // 修改所有筛选条件变更时重置状态
+        toggleCategoryTag(category, tag) {
+            // 原有逻辑...
+            this.filtersApplied = false;
+        },
+        toggleTag(tag) {
+            // 原有逻辑...
+            this.filtersApplied = false;
+        },
         toggleSearch() {
             this.showSearch = !this.showSearch
             
