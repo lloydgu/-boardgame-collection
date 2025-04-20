@@ -36,9 +36,9 @@ createApp({
         }
     },
     computed: {
-        sortOrderLabel() {
-            return `${this.sortOrder === 'asc' ? '低到高' : '高到低'}`
-          },
+        // sortOrderLabel() {
+        //     return `${this.sortOrder === 'asc' ? '低到高' : '高到低'}`
+        //   },
           // 排序后的游戏列表（覆盖原有filteredGames）
           sortedGames() {
             return [...this.filteredGames].sort((a, b) => {
