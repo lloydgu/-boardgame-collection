@@ -32,7 +32,7 @@
                 <input 
                     type="number" 
                     v-model.number="playerCount" 
-                    placeholder="👥 几个人玩" 
+                    placeholder="👥 几个人玩？" 
                     min="1" 
                     class="player-input"
                 >
@@ -82,14 +82,14 @@
             </div>
             <div class="filter-actions">
                 <button 
-                    class="apply-filter-btn"
-                    @click="applyFilters"
-                    :class="{ 'active': filtersApplied }"
-                >
-                    🎯 应用筛选
-                    <span v-if="activeFilterCount > 0" class="filter-count">
-                        ({{ activeFilterCount }})
-                    </span>
+                class="apply-filter-btn"
+                @click="applyFilters"
+                :class="{ 'active': filtersApplied }"
+            >
+                🎯 应用筛选
+                <span v-if="potentialGameCount > 0" class="count-badge">
+                    {{ potentialGameCount }}
+                </span>
                 </button>
             </div>
             <!-- 游戏列表 -->

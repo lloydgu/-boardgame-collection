@@ -34,6 +34,7 @@ createApp({
         }
     },
     computed: {
+        
         // 组合过滤逻辑
         filteredGames() {
             if (!this.hasAppliedFilters) return [];
@@ -68,8 +69,39 @@ createApp({
                 ) : true;
                 return textMatch && freeTagMatch && categoryMatch && playerMatch;
             });
-        },
 
+            
+        },
+        potentialGameCount() {
+            return this.games.filter(game => {
+                // 复用过滤逻辑但忽略filtersApplied状态
+                const textMatch = this.searchText === '' || 
+                    game.名称.toLowerCase().includes(this.searchText.toLowerCase()) ||
+                    game.标签.some(tag => 
+                        !this.isCategoryTag(tag) &&
+                        tag.toLowerCase().includes(this.searchText.toLowerCase())
+                    );
+    
+                const playerMatch = !this.playerCount || 
+                    this.checkPlayerCount(game.人数, this.playerCount);
+    
+                const freeTagMatch = this.selectedTags.size === 0 || 
+                    Array.from(this.selectedTags).some(tag => 
+                        game.标签.includes(tag)
+                    );
+    
+                const categoryMatch = Object.entries(this.selectedCategoryTags)
+                    .every(([category, tags]) => 
+                        tags.size === 0 || 
+                        game.标签.some(gameTag => {
+                            const [cat, val] = this.splitTag(gameTag);
+                            return cat === category && tags.has(val);
+                        })
+                    );
+    
+                return textMatch && freeTagMatch && categoryMatch && playerMatch;
+            }).length;
+        },
         // 当前激活筛选数量
         activeFilterCount() {
             return Array.from(this.selectedTags).length + 
