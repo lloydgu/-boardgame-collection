@@ -383,3 +383,35 @@ body {
     max-height: 0;
     transform: translateY(-10px);
 }
+
+/* 添加背景图样式 */
+body {
+    background-image: url('https://raw.githubusercontent.com/lloydgu/boardgame-images/refs/heads/main/stock-photo-brown-wooden-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* 为内容区域添加半透明背景 */
+#app {
+    background-color: rgba(255, 255, 255, 0.92);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* 调整移动端显示 */
+@media (max-width: 768px) {
+    #app {
+        margin: 10px;
+        padding: 15px;
+    }
+    body {
+        background-size: contain;
+    }
+}
+
