@@ -689,3 +689,13 @@ body {
     vertical-align: middle; /* 垂直居中对齐 */
 
 }
+
+.category-icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+.tag-name {
+    margin-left: 4px; /* 图标和标签名的间距 */
+    font-weight: normal; /* 可选：调整文字样式 */
+}

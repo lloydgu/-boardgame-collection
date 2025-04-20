@@ -34,7 +34,7 @@
         <div class="content-container">
             <div class="filter-section">
                 <div class="player-input-container">
-                    <span class="input-icon">👥</span>
+                    <span img src="image/三地鼠.png" class="input-icon"></span>
                     <input 
                         type="number" 
                         v-model.number="playerCount" 
@@ -77,18 +77,20 @@
             <!-- 当前筛选状态 -->
             <div class="active-filters">
                 <div v-if="activeFilterCount > 0" class="active-tags">
-                    <template v-for="category in Object.keys(categoryMap)">
-                        <span
-                            v-for="tag in selectedCategoryTags[category]"
-                            :key="tag"
-                            class="active-tag"
-                            :class="category"
-                            @click="toggleCategoryTag(category, tag)"
-                        >
-                        <span v-html="categoryMap[category]"></span>
-                        {{ tag }} ×
-                        </span>
-                    </template>
+                  <template v-for="(tags, category) in selectedCategoryTags">
+                    <span
+                      v-for="tag in tags"
+                      :key="tag"
+                      class="active-tag"
+                      :class="category"
+                      @click="toggleCategoryTag(category, tag)"
+                    >
+                      <!-- 仅渲染图标 -->
+                      <span v-html="categoryMap[category].split(' ')[0]"></span>
+                      <!-- 显示标签名 -->
+                      <span class="tag-name">{{ tag }}</span> ×
+                    </span>
+                  </template>
                 </div>
             </div>
             <div class="filter-actions">
