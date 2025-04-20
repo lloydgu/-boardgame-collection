@@ -85,7 +85,8 @@
                             :class="category"
                             @click="toggleCategoryTag(category, tag)"
                         >
-                            {{ categoryMap[category] }}: {{ tag }} ×
+                        <span v-html="categoryMap[category]"></span>
+                        {{ tag }} ×
                         </span>
                     </template>
                 </div>
@@ -96,7 +97,7 @@
                 @click="applyFilters"
                 :class="{ 'active': filtersApplied }"
             >
-               '<img src="image/可达鸭.png" class="category-icon"> 应用筛选'
+                <img src="image/可达鸭.png" class="category-icon"> 应用筛选
                 <span v-if="potentialGameCount > 0" class="count-badge">
                     {{ potentialGameCount }}
                 </span>
