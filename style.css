@@ -127,26 +127,55 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 /* 人数筛选样式 */
-.filter-section {
-    margin: 15px 0;
-    display: flex;
-    gap: 15px;
-}
-
-.player-input {
-    padding: 12px;
-    border: 2px solid #4CAF50;
+/* 人数筛选容器 */
+.player-filter-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
     border-radius: 25px;
-    width: 200px;
-    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 4px 8px;
 }
 
+/* 缩小人数输入框 */
+.player-input {
+    width: 120px; /* 原200px */
+    padding: 8px 12px;
+    border: none;
+    font-size: 14px;
+    background: transparent;
+}
+
+.player-input:focus {
+    outline: none;
+}
+
+/* 搜索图标调整 */
+.search-icon {
+    cursor: pointer;
+    font-size: 20px;
+    padding: 6px;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* 移动端适配 */
 @media (max-width: 768px) {
-    .filter-section {
-        flex-direction: column;
-    }
-    .player-input {
+    .player-filter-group {
         width: 100%;
+        justify-content: space-between;
+    }
+    
+    .player-input {
+        width: calc(100% - 40px);
+        font-size: 16px;
     }
 }
 
