@@ -94,7 +94,9 @@
                 @click="applyFilters"
                 :class="{ 'active': filtersApplied }"
             >
-                🎯 应用筛选
+                <span class="material-icons">
+                group
+                </span> 应用筛选
                 <span v-if="potentialGameCount > 0" class="count-badge">
                     {{ potentialGameCount }}
                 </span>
