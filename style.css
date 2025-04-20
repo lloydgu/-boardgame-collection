@@ -385,6 +385,8 @@ body {
 }
 
 /* 添加背景图样式 */
+
+/* 修正移动端背景问题 */
 body {
     background-image: url('https://raw.githubusercontent.com/lloydgu/boardgame-images/refs/heads/main/stock-photo-brown-wooden-background.jpg');
     background-size: cover;
@@ -392,26 +394,23 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
+    /* 新增背景色作为备用 */
+    background-color: #f0f2f5;
 }
 
-/* 为内容区域添加半透明背景 */
-#app {
-    background-color: rgba(255, 255, 255, 0.92);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    margin: 20px auto;
-    max-width: 1200px;
-}
-
-/* 调整移动端显示 */
+/* 移动端适配修改 */
 @media (max-width: 768px) {
+    body {
+        background-size: auto 100%; /* 垂直方向填满 */
+        background-repeat: repeat-x; /* 水平方向平铺 */
+        background-attachment: scroll; /* 移动端禁用视差效果 */
+        background-position: 50% 20%; /* 优化焦点位置 */
+    }
+    
     #app {
         margin: 10px;
         padding: 15px;
-    }
-    body {
-        background-size: contain;
+        border-radius: 10px; /* 缩小圆角 */
+        min-height: 90vh; /* 确保内容区域高度 */
     }
 }
-
