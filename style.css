@@ -9,7 +9,7 @@
 
 /* 更新现有颜色引用 */
 body {
-    background-color: var(--background-color);
+    background-color: #ebe1c961;
     color: var(--text-color);
 }
 
@@ -370,13 +370,13 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    background: #f8f9fa;
+    background:#c9d6ba;
     border-radius: 8px;
     transition: background 0.2s;
 }
 
 .category-header:hover {
-    background: #e9ecef;
+    background: #a5c186;
 }
 
 .toggle-icon {
@@ -504,7 +504,7 @@ body {
 
 /* 新增内容容器样式 */
 .content-container {
-    background-color: white;
+    background-color: #f2ecde;
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -519,7 +519,7 @@ body {
 
 /* 调整分类筛选区样式 */
 .category-filter {
-    background: white; /* 白色背景 */
+    background:#c9d6ba59;
     border: 1px solid #e0e0e0; /* 添加边框 */
 }
 

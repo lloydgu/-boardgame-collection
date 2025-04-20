@@ -89,8 +89,7 @@
                       :class="category"
                       @click="toggleCategoryTag(category, tag)"
                     >
-                      <!-- 仅渲染图标 -->
-                      <span v-html="categoryMap[category].split(' ')[0]"></span>
+
                       <!-- 显示标签名 -->
                       <span class="tag-name">{{ tag }}</span> ×
                     </span>
