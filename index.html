@@ -80,27 +80,9 @@
                 </template>
             </div>
         </div>
-        <!-- 新增筛选按钮 -->
-        <div class="filter-control">
-            <!-- 筛选按钮 -->
-            <button 
-                class="filter-btn"
-                :class="{ 'active': filtersApplied }"
-                @click="applyFilters"
-            >
-                {{ filtersApplied ? '已应用筛选' : '开始筛选' }}
-                <span class="badge" v-if="activeFilterCount > 0">
-                    {{ activeFilterCount }}
-                </span>
-            </button>
-        
+
         <!-- 游戏列表 -->
         <div class="game-list">
-            <template v-if="displayedGames.length > 0">
-                <div 
-                    v-for="game in displayedGames" 
-                    class="game-card"
-                >
             <div 
                 v-for="game in filteredGames"
                 class="game-card"
@@ -118,17 +100,7 @@
                         <span>⏳ {{ game.时长 }}</span>
                         <span>🏋️ {{ game.难度 }}</span>
                     </div>
-                </div>
-            </template>
-            <div v-else-if="filtersApplied" class="empty-state">
-                🕵️♀️ 没有找到符合条件的桌游
-            </div>
-        
-            <!-- 3. 初始状态提示 -->
-            <div v-else class="empty-state">
-                🎲 设置筛选条件后点击"开始筛选"
-            </div>
-        </div>
+                    
                     <!-- 游戏标签展示 -->
                     <div class="game-tags">
                         <template v-for="tag in game.标签">

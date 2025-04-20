@@ -29,8 +29,6 @@ createApp({
             isLoading: true,
             error: null,
             playerCount: null,
-            displayedGames: [],
-            filtersApplied: false
             
         }
     },
@@ -46,7 +44,7 @@ createApp({
                         tag.toLowerCase().includes(this.searchText.toLowerCase())
                     );
 
-                // 新增人数过滤
+            // 新增人数过滤
                 const playerMatch = !this.playerCount || 
                     this.checkPlayerCount(game.人数, this.playerCount);
 
@@ -78,24 +76,7 @@ createApp({
         }
     },
     methods: {
-        applyFilters() {
-            if (this.filteredGames.length > 0) {
-                this.displayedGames = [...this.filteredGames]; // 创建新数组触发响应式
-                this.filtersApplied = true;
-            } else {
-                this.displayedGames = []; // 清空显示列表
-                this.filtersApplied = false;
-            }
-        },
-        // 修改所有筛选条件变更时重置状态
-        toggleCategoryTag(category, tag) {
-            // 原有逻辑...
-            this.filtersApplied = false;
-        },
-        toggleTag(tag) {
-            // 原有逻辑...
-            this.filtersApplied = false;
-        },
+        
         toggleSearch() {
             this.showSearch = !this.showSearch
             
@@ -207,7 +188,6 @@ createApp({
                     标签: item.标签.split(',').map(t => t.trim()),
                     
                 }));
-                this.displayedGames = [...this.games]; // 初始显示全部数据
 
                 // 本地缓存
                 localStorage.setItem('gamesCache', JSON.stringify(this.games));
