@@ -769,3 +769,13 @@ body {
   .sort-btn i {
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
+
+  .sort-btn .sort-icon {
+    position: absolute;
+    right: 8px;          /* 距离右侧的距离 */
+    top: 50%;            /* 垂直居中基准 */
+    transform: translateY(-50%); /* 垂直居中 */
+    transition: transform 0.2s ease;
+    /* 显式设置旋转中心为按钮中心 */
+    transform-origin: center center;
+  }
