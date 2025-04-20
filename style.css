@@ -184,24 +184,20 @@ body {
 }
 
 /* 分类标签颜色方案 */
-.tag.weight { background: #ffe5e5; border: 1px solid #f06969; }
-.tag.theme { background: #e5ffe5; border: 1px solid #4fa842; }
-.tag.mechanic { background: #e5f3ff; border: 1px solid #67a0d9; }
+.tag.weight { background: rgb(215,215,215); border: 1px solid rgb(215,215,215); }
+.tag.theme { background: rgb(233,197,113); border: 1px solid rgb(233,197,113); }
+.tag.mechanic { background: #4D5C9F; border: 1px solid #4D5C9F; }
 /* 在分类标签颜色方案后添加 */
 .tag.other {
-    background: #f3e5f5;
-    border: 1px solid #ce93d8;
+    background: #E1BDAD;
+    border: 1px solid #E1BDAD;
 }
 
-.active-tag.other {
-    background: #a10ab830;
-    border: 1px solid #cc95d5;
-}
 /* 激活状态 */
 .active-tag {
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 
@@ -529,7 +525,7 @@ body {
 
 .tag {
     padding: 3px 6px; /* 更紧凑的内边距 */
-    font-size: 0.5em; /* 缩小字号 */
+    font-size: 0.6em; /* 缩小字号 */
     border-radius: 10px; /* 调整圆角 */
     line-height: 1; /* 优化行高 */
     margin:0.5px;
