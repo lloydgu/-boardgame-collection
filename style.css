@@ -610,6 +610,10 @@ body {
 }
 
 .input-icon {
+    width: 18px;  /* 根据实际图标尺寸调整 */
+    height: 18px;
+    margin-right: 8px; /* 图标和输入框间距 */
+    vertical-align: middle; /* 解决图片底部空白缝隙 */
     position: absolute;
     left: 12px;
     top: 50%;
