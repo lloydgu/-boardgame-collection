@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +7,8 @@
     <title>Y&L的桌游室</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -34,7 +37,7 @@
                     <input 
                         type="number" 
                         v-model.number="playerCount" 
-                        placeholder="输入人数"
+                        placeholder="今天几只？"
                         min="1" 
                         class="player-input"
                     >
@@ -46,7 +49,9 @@
                 <div class="category-group" v-for="(_, category) in categoryMap">
                     <h3 @click="toggleCategory(category)" class="category-header">
                         {{ categoryMap[category] }}
-                        <span class="toggle-icon">{{ categoryStates[category] ? '▼' : '▶' }}</span>
+                        <span class="toggle-icon">{{ categoryStates[category] ? '▼' : <span class="material-icons">
+                            play_arrow
+                            </span> }}</span>
                     </h3>
                     <transition name="slide">
                         <div v-show="categoryStates[category]" class="tags">
@@ -89,7 +94,7 @@
                 @click="applyFilters"
                 :class="{ 'active': filtersApplied }"
             >
-                <i class="pkmn-icon pkmn-pikachu"></i> 应用筛选
+                🎯 应用筛选
                 <span v-if="potentialGameCount > 0" class="count-badge">
                     {{ potentialGameCount }}
                 </span>

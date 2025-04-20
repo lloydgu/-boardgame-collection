@@ -621,14 +621,14 @@ body {
 .player-input {
     padding-left: 40px; /* 为图标留出空间 */
     padding-right: 12px; /* 右侧留白 */
-    width: 102px;
+    width: 72px;
     font-size: 12px;
 }
 
 /* 移动端适配 */
 @media (max-width: 768px) {
     .player-input {
-        width: 92px;
+        width: 60px;
         padding-left: 36px;
     }
     
@@ -637,9 +637,3 @@ body {
     }
 }
 
-
-@font-face {
-    font-family: 'PokemonIcons';
-    src: url('pokemon-icons.woff') format('woff');
-}
-.pkmn-icon { font-family: 'PokemonIcons'; }
