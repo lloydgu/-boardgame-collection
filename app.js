@@ -7,10 +7,10 @@ createApp({
             searchText: '',
             selectedTags: new Set(),
             categoryMap: {
-                weight: '<i class="material-icons">linear_scale</i> 重度',
-                theme: '<i class="material-icons">map</i> 主题',
-                mechanic: '<i class="material-icons">build</i> 机制',
-                other: '<i class="material-icons">star</i> 其他'
+                weight: '<img src="image/卡比兽.png" class="category-icon" alt="重度"> 重度',
+                theme: '<img src="image/皮卡丘.png" class="category-icon" alt="主题"> 主题',
+                mechanic: '<img src="image/可达鸭.png" class="category-icon" alt="机制"> 机制',
+                other: '<img src="image/梦幻.png" class="category-icon" alt="其他"> 其他'
             },
             selectedCategoryTags: {
                 weight: new Set(),
