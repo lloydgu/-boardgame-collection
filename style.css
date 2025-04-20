@@ -135,10 +135,10 @@ body {
 
 .player-input {
     padding: 12px;
-    border: 2px solid #4CAF50;
+    border: 2px solid #6d6d6db3;
     border-radius: 25px;
-    width: 200px;
-    font-size: 16px;
+    width: 50px; 
+    font-size: 14px; 
 }
 
 @media (max-width: 768px) {
@@ -204,6 +204,8 @@ body {
     right: 20px;
     z-index: 1000;
 }
+
+
 
 /* 搜索图标 */
 .search-icon {
@@ -342,3 +344,15 @@ body {
       width: 100%;
     }
   }
+
+  @media (max-width: 768px) {
+    .player-input {
+    width: 100%; /* 移动端保持全宽 /
+    }
+    / 保持原有搜索容器移动端适配 */
+    .search-container {
+    top: 10px;
+    right: 10px;
+    }
+    }
+}
