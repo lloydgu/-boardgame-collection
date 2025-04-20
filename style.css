@@ -765,3 +765,7 @@ body {
   .reversed {
     transform: translateY(-50%) rotate(180deg);
   }
+
+  .sort-btn i {
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }

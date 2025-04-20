@@ -112,11 +112,7 @@
                 @click="toggleSortOrder"
               >
                 {{ sortOrderLabel }}
-                <FontAwesomeIcon 
-                :icon="faSortAmountDown" 
-                class="sort-icon"
-                :class="{ reversed: sortOrder === 'asc' }"
-              />
+                <i class="fas fa-sort-amount-down" :class="{ reversed: sortOrder === 'asc' }"></i>
               </button>
             </div>
             <!-- 游戏列表 -->
