@@ -3,6 +3,8 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            // 新增排序状态
+            sortOrder: 'asc', // 可选值：'asc'（升序）或 'desc'（降序）
             games: [],
             searchText: '',
             selectedTags: new Set(),
@@ -34,6 +36,18 @@ createApp({
         }
     },
     computed: {
+        sortOrderLabel() {
+            return `${this.sortOrder === 'asc' ? '低到高' : '高到低'}`
+          },
+          // 排序后的游戏列表（覆盖原有filteredGames）
+          sortedGames() {
+            return [...this.filteredGames].sort((a, b) => {
+              // 按难度数值排序（假设难度是数字类型）
+              const diffA = parseInt(a.难度);
+              const diffB = parseInt(b.难度);
+              return this.sortOrder === 'asc' ? diffA - diffB : diffB - diffA;
+            });
+          },
         
         // 组合过滤逻辑
         filteredGames() {
@@ -110,7 +124,10 @@ createApp({
         }
     },
     methods: {
-            // 新增应用筛选方法
+        toggleSortOrder() {
+            this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+          },
+        // 新增应用筛选方法
         applyFilters() {
             this.hasAppliedFilters = true;
             this.filtersApplied = true;

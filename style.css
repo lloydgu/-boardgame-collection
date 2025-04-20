@@ -712,3 +712,28 @@ body {
     font-weight: normal; /* 可选：调整文字样式 */
 }
 
+/* 新增排序按钮样式 */
+.sort-btn {
+    padding: 12px 24px;
+    background: #ffffff; /* 白色背景 */
+    border: 2px solid #9cb89c00; 
+    border-radius: 30px;
+    color: #070807; /* 绿色文字 */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-left: 16px; /* 与应用筛选按钮保持间距 */
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); /* 匹配现有阴影 */
+}
+
+/* 悬停效果 */
+.sort-btn:hover {
+    background: #f0fff4; /* 浅绿色背景 */
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+/* 激活状态（可选） */
+.sort-btn:active {
+    transform: scale(0.98);
+}

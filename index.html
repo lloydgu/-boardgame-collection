@@ -107,11 +107,17 @@
                     {{ potentialGameCount }}
                 </span>
                 </button>
+                <button 
+                class="sort-btn"
+                @click="toggleSortOrder"
+              >
+                {{ sortOrderLabel }}
+              </button>
             </div>
             <!-- 游戏列表 -->
             <div class="game-list" v-if="hasAppliedFilters">
                 <div 
-                    v-for="game in filteredGames"
+                    v-for="game in sortedGames"
                     class="game-card"
                 >
                     <img 
