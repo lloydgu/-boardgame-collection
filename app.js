@@ -71,12 +71,8 @@ createApp({
     methods: {
         toggleSearch() {
             this.showSearch = !this.showSearch
-            if (this.showSearch) {
-              this.$nextTick(() => {
-                this.$refs.searchInput.focus()
-              })
-            }
-          },
+            
+        },
         // 添加人数验证方法
         checkPlayerCount(range, target) {
             // 提取所有数字（处理含中文的情况）
