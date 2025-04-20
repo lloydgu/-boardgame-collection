@@ -9,7 +9,7 @@
 
 /* 更新现有颜色引用 */
 body {
-    background-color: #ebe1c961;
+    background-color: #f2ecde;
     color: var(--text-color);
 }
 
@@ -504,7 +504,7 @@ body {
 
 /* 新增内容容器样式 */
 .content-container {
-    background-color: #f2ecde;
+    background-color: #ffffffd9;
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
