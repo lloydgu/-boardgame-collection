@@ -9,8 +9,8 @@ createApp({
             categoryMap: {
                 weight: '<img src="image/卡比兽.png" class="category-icon" alt="重度"> 重度',
                 theme: '<img src="image/皮卡丘.png" class="category-icon" alt="主题"> 主题',
-                mechanic: '<img src="image/可达鸭.png" class="category-icon" alt="机制"> 机制',
-                other: '<img src="image/梦幻.png" class="category-icon" alt="其他"> 其他'
+                mechanic: '<img src="image/小磁怪.png" class="category-icon" alt="机制"> 机制',
+                other: '<img src="image/百变怪.png" class="category-icon" alt="其他"> 其他'
             },
             selectedCategoryTags: {
                 weight: new Set(),
