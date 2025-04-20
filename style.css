@@ -388,7 +388,7 @@ body {
 
 /* 修正移动端背景问题 */
 body {
-    background-image: url('https://raw.githubusercontent.com/lloydgu/boardgame-images/refs/heads/main/stock-photo-brown-wooden-background.jpg');
+    background-image: url('https://raw.githubusercontent.com/lloydgu/boardgame-images/refs/heads/main/stock-photo-gray-old-wood-background.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
