@@ -245,9 +245,6 @@ body {
     transition: width 0.3s;
 }
 
-.search-input:focus {
-    width: 250px;
-}
 
 /* 关闭按钮 */
 .close-btn {
@@ -277,9 +274,7 @@ body {
     .search-input {
         width: 180px;
     }
-    .search-input:focus {
-        width: 200px;
-    }
+
 }
 
 /* style.css 新增样式 */
