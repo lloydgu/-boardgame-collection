@@ -112,7 +112,12 @@
                 @click="toggleSortOrder"
               >
                 {{ sortOrderLabel }}
-                <i img src="image/果然翁.png" :class="{ reversed: sortOrder === 'asc' }"></i>
+                <img 
+                src="image/果然翁.png" 
+                class="sort-icon"
+                :class="{ reversed: sortOrder === 'asc' }"
+                alt="排序图标"
+              >
               </button>
             </div>
             <!-- 游戏列表 -->
