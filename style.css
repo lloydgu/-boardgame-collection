@@ -127,55 +127,26 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 /* 人数筛选样式 */
-/* 人数筛选容器 */
-.player-filter-group {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: white;
-    border-radius: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 4px 8px;
-}
-
-/* 缩小人数输入框 */
-.player-input {
-    width: 120px; /* 原200px */
-    padding: 8px 12px;
-    border: none;
-    font-size: 14px;
-    background: transparent;
-}
-
-.player-input:focus {
-    outline: none;
-}
-
-/* 搜索图标调整 */
-.search-icon {
-    cursor: pointer;
-    font-size: 20px;
-    padding: 6px;
-    transition: transform 0.2s;
+.filter-section {
+    margin: 15px 0;
     display: flex;
-    align-items: center;
+    gap: 15px;
 }
 
-.search-icon:hover {
-    transform: scale(1.1);
-    opacity: 0.8;
+.player-input {
+    padding: 12px;
+    border: 2px solid #4CAF50;
+    border-radius: 25px;
+    width: 200px;
+    font-size: 16px;
 }
 
-/* 移动端适配 */
 @media (max-width: 768px) {
-    .player-filter-group {
-        width: 100%;
-        justify-content: space-between;
+    .filter-section {
+        flex-direction: column;
     }
-    
     .player-input {
-        width: calc(100% - 40px);
-        font-size: 16px;
+        width: 100%;
     }
 }
 
@@ -228,54 +199,25 @@ body {
 
 /* 搜索容器 */
 .search-container {
-    position: relative;
-    display: inline-block;
-    margin-left: 20px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 
-/* 放大镜图标 */
+/* 搜索图标 */
 .search-icon {
     cursor: pointer;
     font-size: 24px;
-    padding: 8px;
-    transition: transform 0.2s;
+    padding: 10px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
 }
 
 .search-icon:hover {
     transform: scale(1.1);
-    opacity: 0.8;
-}
-/* 内联搜索框 */
-.inline-search {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: white;
-    border-radius: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    z-index: 100;
-}
-
-.inline-input {
-    border: none;
-    padding: 8px 15px;
-    border-radius: 25px;
-    width: 180px;
-    outline: none;
-    transition: width 0.3s;
-}
-
-.inline-input:focus {
-    width: 220px;
-}
-
-.close-icon {
-    cursor: pointer;
-    padding: 0 10px;
-    font-size: 20px;
-    color: #666;
 }
 
 /* 搜索框容器 */
@@ -314,33 +256,30 @@ body {
     cursor: pointer;
     color: #666;
 }
+
 /* 过渡动画 */
-.search-slide-enter-active,
-.search-slide-leave-active {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.slide-enter-active, .slide-leave-active {
+    transition: all 0.3s;
 }
-
-.search-slide-enter-from,
-.search-slide-leave-to {
+.slide-enter-from, .slide-leave-to {
     opacity: 0;
-    transform: translateX(-10px);
+    transform: translateX(20px);
 }
-
 
 /* 移动端适配 */
 @media (max-width: 768px) {
     .search-container {
-        margin-left: 10px;
+        top: 10px;
+        right: 10px;
     }
-    
-    .inline-input {
-        width: 140px;
+    .search-input {
+        width: 180px;
     }
-    
-    .inline-input:focus {
-        width: 160px;
+    .search-input:focus {
+        width: 200px;
     }
 }
+
 /* style.css 新增样式 */
 /* 搜索触发按钮 */
 .search-trigger {

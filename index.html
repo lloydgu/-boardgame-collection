@@ -27,17 +27,15 @@
             </transition>
         </div>
         <!-- 在搜索框下方添加人数筛选 -->
-        <div class="player-filter-group">
-            <input
-                type="number"
-                v-model.number="playerCount"
-                placeholder="👥 几个人玩"
-                min="1"
+        <div class="filter-section">
+            <input 
+                type="number" 
+                v-model.number="playerCount" 
+                placeholder="👥 几个人玩" 
+                min="1" 
                 class="player-input"
             >
-            <div class="search-icon" @click="toggleSearch">🔍</div>
         </div>
-    </div>
         <!-- 分类标签筛选区 -->
         <div class="category-filter">
             <div class="category-group" v-for="(_, category) in categoryMap">
