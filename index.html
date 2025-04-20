@@ -9,14 +9,26 @@
 </head>
 <body>
     <div id="app">
-        <!-- 搜索框 -->
-        <div class="search-box">
-            <input 
-                type="text" 
-                v-model="searchText" 
-                placeholder="🔍 搜索名称或标签..."
-                class="search-input"
-            >
+        <!-- 原搜索框位置修改为 -->
+        <div class="search-container">
+            <!-- 搜索图标 -->
+            <div class="search-icon" @click="toggleSearch">
+                🔍
+            </div>
+            
+            <!-- 可折叠搜索框 -->
+            <transition name="slide">
+                <div v-if="showSearch" class="search-box">
+                    <input
+                        type="text"
+                        v-model="searchText"
+                        placeholder="搜索名称或标签..."
+                        class="search-input"
+                        ref="searchInput"
+                    >
+                    <button @click="toggleSearch" class="close-btn">×</button>
+                </div>
+            </transition>
         </div>
         <!-- 在搜索框下方添加人数筛选 -->
         <div class="filter-section">

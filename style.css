@@ -196,3 +196,86 @@ body {
     opacity: 0.4;
     transition: opacity 0.3s;
 }
+
+/* 搜索容器 */
+.search-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* 搜索图标 */
+.search-icon {
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.search-icon:hover {
+    transform: scale(1.1);
+}
+
+/* 搜索框容器 */
+.search-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+/* 输入框样式 */
+.search-input {
+    width: 200px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    transition: width 0.3s;
+}
+
+.search-input:focus {
+    width: 250px;
+}
+
+/* 关闭按钮 */
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    padding: 0 10px;
+    cursor: pointer;
+    color: #666;
+}
+
+/* 过渡动画 */
+.slide-enter-active, .slide-leave-active {
+    transition: all 0.3s;
+}
+.slide-enter-from, .slide-leave-to {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .search-container {
+        top: 10px;
+        right: 10px;
+    }
+    .search-input {
+        width: 180px;
+    }
+    .search-input:focus {
+        width: 200px;
+    }
+}
