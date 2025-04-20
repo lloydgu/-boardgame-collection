@@ -29,7 +29,8 @@ createApp({
             isLoading: true,
             error: null,
             playerCount: null,
-            
+            filtersApplied: false
+
         }
     },
     computed: {
@@ -49,21 +50,21 @@ createApp({
                     this.checkPlayerCount(game.人数, this.playerCount);
 
                 // 自由标签匹配
-                const freeTagMatch = this.selectedTags.size === 0 || 
-                    Array.from(this.selectedTags).some(tag => 
-                        game.标签.includes(tag)
-                    );
+                const freeTagMatch = this.filtersApplied ? 
+                (this.selectedTags.size === 0 || 
+                Array.from(this.selectedTags).some(tag => 
+                    game.标签.includes(tag)
+                )) : true;
 
                 // 分类标签匹配（AND逻辑）
-                const categoryMatch = Object.entries(this.selectedCategoryTags)
-                    .every(([category, tags]) => 
-                        tags.size === 0 || 
-                        game.标签.some(gameTag => {
-                            const [cat, val] = this.splitTag(gameTag);
-                            return cat === category && tags.has(val);
-                        })
-                    );
-
+                const categoryMatch = this.filtersApplied ? 
+                Object.entries(this.selectedCategoryTags).every(([category, tags]) => 
+                    tags.size === 0 || 
+                    game.标签.some(gameTag => {
+                        const [cat, val] = this.splitTag(gameTag);
+                        return cat === category && tags.has(val);
+                    })
+                ) : true;
                 return textMatch && freeTagMatch && categoryMatch && playerMatch;
             });
         },
@@ -76,8 +77,13 @@ createApp({
         }
     },
     methods: {
-        
-        toggleSearch() {
+            // 新增应用筛选方法
+        applyFilters() {
+            this.filtersApplied = true;
+            // 如果没有任何筛选条件，显示全部
+            if(this.activeFilterCount === 0) this.filtersApplied = false;
+        },
+            toggleSearch() {
             this.showSearch = !this.showSearch
             
         },
@@ -106,6 +112,7 @@ createApp({
         toggleCategoryTag(category, tag) {
             const selected = this.selectedCategoryTags[category];
             selected.has(tag) ? selected.delete(tag) : selected.add(tag);
+            this.filtersApplied = false;
         },
 
         // 自由标签操作
@@ -113,6 +120,7 @@ createApp({
             this.selectedTags.has(tag) ? 
                 this.selectedTags.delete(tag) : 
                 this.selectedTags.add(tag);
+                this.filtersApplied = false;
         },
 
         // 分类标签点击处理

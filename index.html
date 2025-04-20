@@ -80,7 +80,18 @@
                 </template>
             </div>
         </div>
-
+        <div class="filter-actions">
+            <button 
+                class="apply-filter-btn"
+                @click="applyFilters"
+                :class="{ 'active': filtersApplied }"
+            >
+                🎯 应用筛选
+                <span v-if="activeFilterCount > 0" class="filter-count">
+                    ({{ activeFilterCount }})
+                </span>
+            </button>
+        </div>
         <!-- 游戏列表 -->
         <div class="game-list">
             <div 

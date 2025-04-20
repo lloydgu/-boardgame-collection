@@ -414,3 +414,60 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* 筛选按钮样式 */
+.apply-filter-btn {
+    padding: 12px 24px;
+    background: linear-gradient(145deg, #4CAF50, #45a049);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.apply-filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.apply-filter-btn.active {
+    background: linear-gradient(145deg, #ff9800, #f57c00);
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.filter-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.filter-actions {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* 按钮点击动画 */
+.apply-filter-btn:active {
+    transform: scale(0.95);
+}
+
+/* 添加按钮立体效果 */
+.apply-filter-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
