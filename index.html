@@ -7,8 +7,7 @@
     <title>Y&L的桌游室</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    
 </head>
 <body>
     <div id="app">
@@ -49,9 +48,7 @@
                 <div class="category-group" v-for="(_, category) in categoryMap">
                     <h3 @click="toggleCategory(category)" class="category-header">
                         {{ categoryMap[category] }}
-                        <span class="toggle-icon">{{ categoryStates[category] ? '▼' : <span class="material-icons">
-                            play_arrow
-                            </span> }}</span>
+                        <span class="toggle-icon">{{ categoryStates[category] ? '▼' : '▶' }}</span>
                     </h3>
                     <transition name="slide">
                         <div v-show="categoryStates[category]" class="tags">
