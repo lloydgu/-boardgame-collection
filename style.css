@@ -529,13 +529,13 @@ body {
 /* 修改游戏卡片标签样式 */
 .game-tags {
     margin-top: 5px;
-    gap: 2px; /* 缩小标签间距 */
+    gap: 1px; /* 缩小标签间距 */
 }
 
 .game-tag {
     padding: 1px 2px; /* 更紧凑的内边距 */
-    font-size: 0.5em; /* 缩小字号 */
-    border-radius: 8px; /* 调整圆角 */
+    font-size: 0.4em; /* 缩小字号 */
+    border-radius: 4px; /* 调整圆角 */
     line-height: 1; /* 优化行高 */
 }
 
@@ -560,14 +560,14 @@ body {
 }
 
 .meta {
-    margin-top: 8px;
-    font-size: 0.9em;
+    margin-top: 5px;
+    font-size: 0.8em;
 }
 
 /* 移动端适配 */
 @media (max-width: 768px) {
     .game-cover {
-        height: 180px; /* 保持适当比例 */
+        height: 260px; /* 保持适当比例 */
     }
     
     .game-card {
@@ -575,6 +575,6 @@ body {
     }
     
     .game-tag {
-        font-size: 0.4em; /* 更小的移动端字号 */
+        font-size: 0.3em; /* 更小的移动端字号 */
     }
 }
