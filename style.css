@@ -467,3 +467,23 @@ body {
         padding: 15px;
     }
 }
+
+/* 新增空状态样式 */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 18px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.empty-state button {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
