@@ -29,13 +29,16 @@
         <!-- 新增内容容器包裹其他内容 -->
         <div class="content-container">
             <div class="filter-section">
-                <input 
-                    type="number" 
-                    v-model.number="playerCount" 
-                    placeholder="👥 几个人玩？" 
-                    min="1" 
-                    class="player-input"
-                >
+                <div class="player-input-container">
+                    <span class="input-icon">👥</span>
+                    <input 
+                        type="number" 
+                        v-model.number="playerCount" 
+                        placeholder="输入人数"
+                        min="1" 
+                        class="player-input"
+                    >
+                </div>
             </div>
             <!-- 分类标签筛选区 -->
             <!-- 修改分类标签区结构 -->
@@ -86,7 +89,7 @@
                 @click="applyFilters"
                 :class="{ 'active': filtersApplied }"
             >
-                🎯 应用筛选
+                <i class="pkmn-icon pkmn-pikachu"></i> 应用筛选
                 <span v-if="potentialGameCount > 0" class="count-badge">
                     {{ potentialGameCount }}
                 </span>

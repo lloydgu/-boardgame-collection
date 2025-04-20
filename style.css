@@ -3,7 +3,7 @@
     --secondary-color: #2196F3; /* 次要色调 */
     --background-color: #f2ecde; /* 背景色 */
     --card-color: #c9d6ba; /* 卡片背景色 */
-    --text-color: #aa8366; /* 主要文字颜色 */
+    --text-color: #9a633b; /* 主要文字颜色 */
     --border-color: #e0e0e0; /* 边框颜色 */
 }
 
@@ -156,11 +156,11 @@ body {
 }
 
 .player-input {
-    padding: 12px;
+    padding: 3px;
     border: 2px solid #6d6d6db3;
-    border-radius: 25px;
-    width: 100px; 
-    font-size: 14px; 
+    border-radius: 12px;
+    width: 102px;
+    font-size: 12px;
 }
 
 @media (max-width: 768px) {
@@ -585,3 +585,61 @@ body {
     background: rgba(255, 255, 255, 0.2);
     color: white;
 }
+
+.apply-filter-btn {
+    font-size: 1.1em; /* 与.category-title保持一致 */
+    padding: 10px 20px; /* 微调内边距保持比例 */
+}
+
+/* 移动端适配调整 */
+@media (max-width: 768px) {
+    .apply-filter-btn {
+        font-size: 1em; /* 移动端稍小 */
+        padding: 8px 16px;
+    }
+    
+    .category-title {
+        font-size: 1em; /* 同步调整分类标题 */
+    }
+}
+
+/* 新增样式 */
+.player-input-container {
+    position: relative;
+    display: inline-block;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none; /* 防止图标阻挡输入 */
+}
+
+.player-input {
+    padding-left: 40px; /* 为图标留出空间 */
+    padding-right: 12px; /* 右侧留白 */
+    width: 102px;
+    font-size: 12px;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .player-input {
+        width: 92px;
+        padding-left: 36px;
+    }
+    
+    .input-icon {
+        left: 10px;
+    }
+}
+
+
+@font-face {
+    font-family: 'PokemonIcons';
+    src: url('pokemon-icons.woff') format('woff');
+}
+.pkmn-icon { font-family: 'PokemonIcons'; }
