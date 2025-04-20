@@ -440,7 +440,7 @@ body {
 }
 
 .apply-filter-btn.active {
-    background: linear-gradient(145deg, #ff9800, #f57c00);
+    background: linear-gradient(252deg, #e1a10c, #f1bb3b);
     box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
 }
 
@@ -494,7 +494,7 @@ body {
 
 /* 优化按钮样式 */
 .apply-filter-btn:not(.active) {
-    background: linear-gradient(145deg, #2196F3, #1976D2);
+    background: linear-gradient(145deg, #92ab75, #a8d772);
     box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
 }
 
