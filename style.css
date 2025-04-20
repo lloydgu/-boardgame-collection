@@ -405,3 +405,24 @@ body {
         background-repeat: repeat;
     }
 }
+
+/* 增强内容区域背景不透明度 */
+#app {
+    background-color: rgba(255, 255, 255, 0.98); /* 从0.92改为0.98 */
+    backdrop-filter: blur(2px); /* 可选毛玻璃效果 */
+}
+
+/* 为游戏卡片添加独立背景 */
+.game-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* 调整移动端背景 */
+@media (max-width: 768px) {
+    #app {
+        background-color: rgba(255, 255, 255, 0.98); /* 保持高不透明度 */
+    }
+}
