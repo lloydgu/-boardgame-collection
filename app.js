@@ -36,6 +36,7 @@ createApp({
     computed: {
         // 组合过滤逻辑
         filteredGames() {
+            if (!this.hasAppliedFilters) return [];
             return this.games.filter(game => {
                 // 文本搜索匹配（名称或自由标签）
                 const textMatch = this.searchText === '' || 
@@ -79,9 +80,8 @@ createApp({
     methods: {
             // 新增应用筛选方法
         applyFilters() {
+            this.hasAppliedFilters = true;
             this.filtersApplied = true;
-            // 如果没有任何筛选条件，显示全部
-            if(this.activeFilterCount === 0) this.filtersApplied = false;
         },
             toggleSearch() {
             this.showSearch = !this.showSearch
@@ -113,6 +113,7 @@ createApp({
             const selected = this.selectedCategoryTags[category];
             selected.has(tag) ? selected.delete(tag) : selected.add(tag);
             this.filtersApplied = false;
+            this.hasAppliedFilters = false;
         },
 
         // 自由标签操作
@@ -121,6 +122,7 @@ createApp({
                 this.selectedTags.delete(tag) : 
                 this.selectedTags.add(tag);
                 this.filtersApplied = false;
+                this.hasAppliedFilters = false;
         },
 
         // 分类标签点击处理

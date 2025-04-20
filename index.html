@@ -93,11 +93,10 @@
             </button>
         </div>
         <!-- 游戏列表 -->
-        <div class="game-list">
+        <div class="game-list" v-if="hasAppliedFilters">
             <div 
                 v-for="game in filteredGames"
                 class="game-card"
-                :class="{ 'dimmed': !isGameVisible(game) }"
             >
                 <img 
                     :src="game.封面图URL" 
@@ -135,6 +134,9 @@
                 </div>
             </div>
         </div>
+            <div v-else class="empty-state">
+                🎲 请选择筛选条件后点击"应用筛选"查看匹配的桌游
+            </div>
     </div>
 
     <script src="app.js"></script>
