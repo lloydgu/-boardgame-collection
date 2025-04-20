@@ -57,7 +57,7 @@ body {
 
 .tag.active {
     background: #4CAF50;
-    color: white;
+    font-weight: bolder;
 }
 
 .game-list {
@@ -128,7 +128,7 @@ body {
 }
 
 .active-tag {
-    background: #4CAF50;
+    background: #c9d6ba;
     color: white;
     padding: 6px 12px;
     border-radius: 15px;
