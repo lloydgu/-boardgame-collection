@@ -37,27 +37,32 @@
             >
         </div>
         <!-- 分类标签筛选区 -->
+        <!-- 修改分类标签区结构 -->
         <div class="category-filter">
             <div class="category-group" v-for="(_, category) in categoryMap">
-                <h3>{{ categoryMap[category] }}</h3>
-                <div class="tags">
-                    <span
-                        v-for="tag in getCategoryTags(category)"
-                        :key="tag"
-                        class="tag"
-                        :class="[
-                            category,
-                            { 'active': selectedCategoryTags[category].has(tag) }
-                        ]"
-                        @click="toggleCategoryTag(category, tag)"
-                    >
-                        {{ tag }}
-                        <span class="tag-count">({{ getTagCount(category, tag) }})</span>
-                    </span>
-                </div>
+                <h3 @click="toggleCategory(category)" class="category-header">
+                    {{ categoryMap[category] }}
+                    <span class="toggle-icon">{{ categoryStates[category] ? '▼' : '▶' }}</span>
+                </h3>
+                <transition name="slide">
+                    <div v-show="categoryStates[category]" class="tags">
+                        <span
+                            v-for="tag in getCategoryTags(category)"
+                            :key="tag"
+                            class="tag"
+                            :class="[
+                                category,
+                                { 'active': selectedCategoryTags[category].has(tag) }
+                            ]"
+                            @click="toggleCategoryTag(category, tag)"
+                        >
+                            {{ tag }}
+                            <span class="tag-count">({{ getTagCount(category, tag) }})</span>
+                        </span>
+                    </div>
+                </transition>
             </div>
         </div>
-
         <!-- 当前筛选状态 -->
         <div class="active-filters">
             <div v-if="activeFilterCount > 0" class="active-tags">

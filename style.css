@@ -343,3 +343,43 @@ body {
     }
     
 }
+
+/* 新增折叠相关样式 */
+.category-header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.category-header:hover {
+    background: #e9ecef;
+}
+
+.toggle-icon {
+    margin-left: auto;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.tags {
+    margin-top: 8px;
+}
+
+/* 折叠动画 */
+.slide-enter-active,
+.slide-leave-active {
+    transition: all 0.3s ease;
+    max-height: 500px; /* 根据实际内容调整 */
+    overflow: hidden;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+}

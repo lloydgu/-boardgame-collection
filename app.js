@@ -18,11 +18,18 @@ createApp({
                 mechanic: new Set(),
                 other: new Set() 
             },
+            categoryStates: {
+                weight: false,
+                theme: false,
+                mechanic: false,
+                other: false
+            },
             searchText: '',
             showSearch: false,
             isLoading: true,
             error: null,
-            playerCount: null
+            playerCount: null,
+            
         }
     },
     computed: {
@@ -69,9 +76,14 @@ createApp({
         }
     },
     methods: {
+        
         toggleSearch() {
             this.showSearch = !this.showSearch
             
+        },
+
+        toggleCategory(category) {
+            this.categoryStates[category] = !this.categoryStates[category];
         },
         // 添加人数验证方法
         checkPlayerCount(range, target) {
