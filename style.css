@@ -127,18 +127,7 @@ body {
     gap: 8px;
 }
 
-.active-tag {
-    background: #c9d6ba;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: 0.2s;
-}
 
-.active-tag:hover {
-    background: #45a049;
-}
 
 /* 分类筛选区样式 */
 .category-filter {
@@ -703,3 +692,16 @@ body {
     margin-left: 4px; /* 图标和标签名的间距 */
     font-weight: normal; /* 可选：调整文字样式 */
 }
+
+.active-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 6px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    margin: 2px;
+    transition: all 0.2s;
+    color: #140d0d; /* 统一文字颜色 */
+    font:bolder;
+  }
