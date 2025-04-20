@@ -112,6 +112,7 @@
                 @click="toggleSortOrder"
               >
                 {{ sortOrderLabel }}
+                <i class="fas fa-sort-amount-down" :class="{ active: sortOrder === 'desc' }"></i>
               </button>
             </div>
             <!-- 游戏列表 -->
