@@ -18,6 +18,7 @@ createApp({
                 mechanic: new Set(),
                 other: new Set() 
             },
+            searchText: '',
             showSearch: false,
             isLoading: true,
             error: null,
@@ -68,15 +69,14 @@ createApp({
         }
     },
     methods: {
-            // 新增方法
         toggleSearch() {
             this.showSearch = !this.showSearch
             if (this.showSearch) {
-                this.$nextTick(() => {
-                    this.$refs.searchInput.focus()
-                })
+              this.$nextTick(() => {
+                this.$refs.searchInput.focus()
+              })
             }
-        },
+          },
         // 添加人数验证方法
         checkPlayerCount(range, target) {
             // 提取所有数字（处理含中文的情况）
@@ -194,6 +194,8 @@ createApp({
         }
     },
     mounted() {
+        
         this.loadData();
     }
 }).mount('#app');
+
