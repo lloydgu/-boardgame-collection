@@ -755,8 +755,9 @@ body {
   }
   
   .sort-icon {
+    width: 30px;
+    height: 30px;
     position: absolute;
-    right: 8px;
     top: 50%;
     transform: translateY(-50%);
     transition: transform 0.2s ease;
@@ -772,7 +773,6 @@ body {
 
   .sort-btn .sort-icon {
     position: absolute;
-    right: 8px;          /* 距离右侧的距离 */
     top: 50%;            /* 垂直居中基准 */
     transform: translateY(-50%); /* 垂直居中 */
     transition: transform 0.2s ease;
