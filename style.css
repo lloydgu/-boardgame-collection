@@ -402,15 +402,6 @@ body {
 @media (max-width: 768px) {
     body {
         background-size: auto 100%; /* 垂直方向填满 */
-        background-repeat: repeat-x; /* 水平方向平铺 */
-        background-attachment: scroll; /* 移动端禁用视差效果 */
-        background-position: 50% 20%; /* 优化焦点位置 */
-    }
-    
-    #app {
-        margin: 10px;
-        padding: 15px;
-        border-radius: 10px; /* 缩小圆角 */
-        min-height: 90vh; /* 确保内容区域高度 */
+
     }
 }
