@@ -7,7 +7,8 @@
     <title>Y&L的桌游室</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -94,9 +95,7 @@
                 @click="applyFilters"
                 :class="{ 'active': filtersApplied }"
             >
-                <span class="material-icons">
-                group
-                </span> 应用筛选
+                🎯 应用筛选
                 <span v-if="potentialGameCount > 0" class="count-badge">
                     {{ potentialGameCount }}
                 </span>
