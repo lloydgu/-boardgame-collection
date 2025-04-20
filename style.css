@@ -1,3 +1,24 @@
+:root {
+    --primary-color: #4CAF50; /* 主色调 */
+    --secondary-color: #2196F3; /* 次要色调 */
+    --background-color: #f5f5f5; /* 背景色 */
+    --card-color: white; /* 卡片背景色 */
+    --text-color: #333; /* 主要文字颜色 */
+    --border-color: #e0e0e0; /* 边框颜色 */
+}
+
+/* 更新现有颜色引用 */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.content-container, 
+.game-card,
+.category-filter {
+    background-color: var(--card-color);
+    border-color: var(--border-color);
+}
 
 /* 基础样式 */
 body {
@@ -5,8 +26,10 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #f5f5f5; /* 新增背景色 */
+    background-image: none; /* 移除背景图 */
+    min-height: 100vh;
 }
-
 .search-box {
     margin: 20px 0;
 }
@@ -387,6 +410,7 @@ body {
 /* 添加背景图样式 */
 
 
+
 /* 为游戏卡片添加独立背景 */
 .game-card {
     background: white;
@@ -480,3 +504,25 @@ body {
 .apply-filter-btn:not(.active):hover {
     box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
 }
+
+/* 新增内容容器样式 */
+.content-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* 调整游戏卡片样式 */
+.game-card {
+    background: white; /* 确保卡片背景色 */
+    border: 1px solid #e0e0e0; /* 更柔和的边框 */
+}
+
+/* 调整分类筛选区样式 */
+.category-filter {
+    background: white; /* 白色背景 */
+    border: 1px solid #e0e0e0; /* 添加边框 */
+}
+
