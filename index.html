@@ -7,7 +7,7 @@
     <title>Y&L的桌游室</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div id="app">
@@ -48,7 +48,10 @@
                 <div class="category-group" v-for="(_, category) in categoryMap">
                     <h3 @click="toggleCategory(category)" class="category-header">
                         {{ categoryMap[category] }}
-                        <span class="toggle-icon">{{ categoryStates[category] ? '▼' : '▶' }}</span>
+                        <span class="toggle-icon">
+                            <i v-if="categoryStates[category]" class="fas fa-chevron-down"></i>
+                            <i v-else class="fas fa-chevron-right"></i>
+                          </span>
                     </h3>
                     <transition name="slide">
                         <div v-show="categoryStates[category]" class="tags">
