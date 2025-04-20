@@ -737,3 +737,31 @@ body {
 .sort-btn:active {
     transform: scale(0.98);
 }
+
+/* 排序图标基础样式 */
+.sort-icon {
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+  }
+  
+  /* 反转样式 */
+  .reversed {
+    transform: rotate(180deg);
+  }
+
+  .sort-btn {
+    /* 保持原有样式 */
+    position: relative; /* 确保图标定位正确 */
+  }
+  
+  .sort-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease;
+  }
+  
+  .reversed {
+    transform: translateY(-50%) rotate(180deg);
+  }

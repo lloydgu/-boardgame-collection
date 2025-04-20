@@ -1,6 +1,12 @@
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
+
 const { createApp } = Vue;
 
 createApp({
+    components: {
+        FontAwesomeIcon
+      },
     data() {
         return {
             // 新增排序状态
