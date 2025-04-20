@@ -26,118 +26,122 @@
                 </div>
             </transition>
         </div>
-        <!-- 在搜索框下方添加人数筛选 -->
-        <div class="filter-section">
-            <input 
-                type="number" 
-                v-model.number="playerCount" 
-                placeholder="👥 几个人玩" 
-                min="1" 
-                class="player-input"
-            >
-        </div>
-        <!-- 分类标签筛选区 -->
-        <!-- 修改分类标签区结构 -->
-        <div class="category-filter">
-            <div class="category-group" v-for="(_, category) in categoryMap">
-                <h3 @click="toggleCategory(category)" class="category-header">
-                    {{ categoryMap[category] }}
-                    <span class="toggle-icon">{{ categoryStates[category] ? '▼' : '▶' }}</span>
-                </h3>
-                <transition name="slide">
-                    <div v-show="categoryStates[category]" class="tags">
-                        <span
-                            v-for="tag in getCategoryTags(category)"
-                            :key="tag"
-                            class="tag"
-                            :class="[
-                                category,
-                                { 'active': selectedCategoryTags[category].has(tag) }
-                            ]"
-                            @click="toggleCategoryTag(category, tag)"
-                        >
-                            {{ tag }}
-                        
-                        </span>
-                    </div>
-                </transition>
-            </div>
-        </div>
-        <!-- 当前筛选状态 -->
-        <div class="active-filters">
-            <div v-if="activeFilterCount > 0" class="active-tags">
-                <template v-for="category in Object.keys(categoryMap)">
-                    <span
-                        v-for="tag in selectedCategoryTags[category]"
-                        :key="tag"
-                        class="active-tag"
-                        :class="category"
-                        @click="toggleCategoryTag(category, tag)"
-                    >
-                        {{ categoryMap[category] }}: {{ tag }} ×
-                    </span>
-                </template>
-            </div>
-        </div>
-        <div class="filter-actions">
-            <button 
-                class="apply-filter-btn"
-                @click="applyFilters"
-                :class="{ 'active': filtersApplied }"
-            >
-                🎯 应用筛选
-                <span v-if="activeFilterCount > 0" class="filter-count">
-                    ({{ activeFilterCount }})
-                </span>
-            </button>
-        </div>
-        <!-- 游戏列表 -->
-        <div class="game-list" v-if="hasAppliedFilters">
-            <div 
-                v-for="game in filteredGames"
-                class="game-card"
-            >
-                <img 
-                    :src="game.封面图URL" 
-                    :alt="game.名称" 
-                    class="game-cover"
+        <!-- 新增内容容器包裹其他内容 -->
+        <div class="content-container">
+            <div class="filter-section">
+                <input 
+                    type="number" 
+                    v-model.number="playerCount" 
+                    placeholder="👥 几个人玩" 
+                    min="1" 
+                    class="player-input"
                 >
-                <div class="game-info">
-                    <h3>{{ game.名称 }}</h3>
-                    <div class="meta">
-                        <span>👥 {{ game.人数 }}</span>
-                        <span>⏳ {{ game.时长 }}</span>
-                        <span>🏋️ {{ game.难度 }}</span>
-                    </div>
-                    
-                    <!-- 游戏标签展示 -->
-                    <div class="game-tags">
-                        <template v-for="tag in game.标签">
+            </div>
+            <!-- 分类标签筛选区 -->
+            <!-- 修改分类标签区结构 -->
+            <div class="category-filter">
+                <div class="category-group" v-for="(_, category) in categoryMap">
+                    <h3 @click="toggleCategory(category)" class="category-header">
+                        {{ categoryMap[category] }}
+                        <span class="toggle-icon">{{ categoryStates[category] ? '▼' : '▶' }}</span>
+                    </h3>
+                    <transition name="slide">
+                        <div v-show="categoryStates[category]" class="tags">
                             <span
-                                v-if="isCategoryTag(tag)"
+                                v-for="tag in getCategoryTags(category)"
+                                :key="tag"
                                 class="tag"
-                                :class="getTagCategory(tag)"
-                                @click="toggleParsedTag(tag)"
-                            >
-                                {{ getTagName(tag) }}
-                            </span>
-                            <span
-                                v-else
-                                class="tag custom"
-                                @click="toggleTag(tag)"
+                                :class="[
+                                    category,
+                                    { 'active': selectedCategoryTags[category].has(tag) }
+                                ]"
+                                @click="toggleCategoryTag(category, tag)"
                             >
                                 {{ tag }}
+                            
                             </span>
-                        </template>
+                        </div>
+                    </transition>
+                </div>
+            </div>
+            <!-- 当前筛选状态 -->
+            <div class="active-filters">
+                <div v-if="activeFilterCount > 0" class="active-tags">
+                    <template v-for="category in Object.keys(categoryMap)">
+                        <span
+                            v-for="tag in selectedCategoryTags[category]"
+                            :key="tag"
+                            class="active-tag"
+                            :class="category"
+                            @click="toggleCategoryTag(category, tag)"
+                        >
+                            {{ categoryMap[category] }}: {{ tag }} ×
+                        </span>
+                    </template>
+                </div>
+            </div>
+            <div class="filter-actions">
+                <button 
+                    class="apply-filter-btn"
+                    @click="applyFilters"
+                    :class="{ 'active': filtersApplied }"
+                >
+                    🎯 应用筛选
+                    <span v-if="activeFilterCount > 0" class="filter-count">
+                        ({{ activeFilterCount }})
+                    </span>
+                </button>
+            </div>
+            <!-- 游戏列表 -->
+            <div class="game-list" v-if="hasAppliedFilters">
+                <div 
+                    v-for="game in filteredGames"
+                    class="game-card"
+                >
+                    <img 
+                        :src="game.封面图URL" 
+                        :alt="game.名称" 
+                        class="game-cover"
+                    >
+                    <div class="game-info">
+                        <h3>{{ game.名称 }}</h3>
+                        <div class="meta">
+                            <span>👥 {{ game.人数 }}</span>
+                            <span>⏳ {{ game.时长 }}</span>
+                            <span>🏋️ {{ game.难度 }}</span>
+                        </div>
+                        
+                        <!-- 游戏标签展示 -->
+                        <div class="game-tags">
+                            <template v-for="tag in game.标签">
+                                <span
+                                    v-if="isCategoryTag(tag)"
+                                    class="tag"
+                                    :class="getTagCategory(tag)"
+                                    @click="toggleParsedTag(tag)"
+                                >
+                                    {{ getTagName(tag) }}
+                                </span>
+                                <span
+                                    v-else
+                                    class="tag custom"
+                                    @click="toggleTag(tag)"
+                                >
+                                    {{ tag }}
+                                </span>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
+                <div v-else class="empty-state">
+                    请选择筛选条件后点击"应用筛选"查看匹配的桌游
+                </div>
+        <!-- 在搜索框下方添加人数筛选 -->
+        <script src="app.js"></script>
         </div>
-            <div v-else class="empty-state">
-                请选择筛选条件后点击"应用筛选"查看匹配的桌游
-            </div>
-    </div>
 
-    <script src="app.js"></script>
+    </div>
+    
 </body>
 </html>
