@@ -9,25 +9,23 @@
 </head>
 <body>
     <div id="app">
-        <div class="header">
-            <!-- 在页面导航栏添加搜索按钮 -->
-            <button class="search-trigger" @click="toggleSearch">
-              🔍 搜索
-            </button>
-          
-            <!-- 弹出式搜索框 -->
-            <div v-if="showSearch" class="popup-search">
-              <div class="search-box">
-                <input
-                  type="text"
-                  v-model="searchText"
-                  placeholder="输入游戏名称或标签..."
-                  ref="searchInput"
-                >
-                <button @click="toggleSearch" class="close-btn">×</button>
-              </div>
-            </div>
-          </div>
+        <!-- 替换原有搜索按钮 -->
+        <div class="search-container">
+            <div class="search-icon" @click="toggleSearch">🔍</div>
+            
+            <transition name="search-slide">
+                <div v-if="showSearch" class="inline-search">
+                    <input
+                        type="text"
+                        v-model="searchText"
+                        placeholder="搜索..."
+                        ref="searchInput"
+                        class="inline-input"
+                    >
+                    <span class="close-icon" @click="toggleSearch">×</span>
+                </div>
+            </transition>
+        </div>
         <!-- 在搜索框下方添加人数筛选 -->
         <div class="filter-section">
             <input 
