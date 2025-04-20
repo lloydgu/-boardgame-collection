@@ -69,14 +69,29 @@ createApp({
         }
     },
     methods: {
-        toggleSearch() {
-            this.showSearch = !this.showSearch
-            if (this.showSearch) {
-              this.$nextTick(() => {
-                this.$refs.searchInput.focus()
-              })
+        // 新增点击外部关闭方法
+        handleClickOutside(event) {
+            const searchPopup = this.$el.querySelector('.popup-search');
+            const triggerBtn = this.$el.querySelector('.search-trigger');
+
+            // 当弹出框可见时进行判断
+            if (this.showSearch && searchPopup) {
+                // 判断点击是否在弹出框外部且不在触发按钮上
+                if (!searchPopup.contains(event.target) && 
+                    !triggerBtn.contains(event.target)) {
+                    this.showSearch = false;
+                }
             }
-          },
+        },
+
+        toggleSearch() {
+            this.showSearch = !this.showSearch;
+            if (this.showSearch) {
+                this.$nextTick(() => {
+                    this.$refs.searchInput.focus();
+                });
+            }
+        },
         // 添加人数验证方法
         checkPlayerCount(range, target) {
             // 提取所有数字（处理含中文的情况）
@@ -194,8 +209,13 @@ createApp({
         }
     },
     mounted() {
+        // 添加全局点击监听
+        document.addEventListener('click', this.handleClickOutside);
+    },
+    beforeUnmount() {
+        // 移除事件监听避免内存泄漏
+        document.removeEventListener('click', this.handleClickOutside);
         
         this.loadData();
     }
 }).mount('#app');
-
