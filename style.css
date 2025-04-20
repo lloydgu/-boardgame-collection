@@ -401,7 +401,7 @@ body {
 /* 移动端适配修改 */
 @media (max-width: 768px) {
     body {
-        background-size: auto 100%; /* 垂直方向填满 */
-
+        background-size: auto; /* 保持移动端平铺效果 */
+        background-repeat: repeat;
     }
 }
