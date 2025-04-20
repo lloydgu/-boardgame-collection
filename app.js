@@ -7,10 +7,10 @@ createApp({
             searchText: '',
             selectedTags: new Set(),
             categoryMap: {
-                weight: '🎚️ 重度',
-                theme: '🌍 主题',
-                mechanic: '⚙️ 机制',
-                other: '🌟 其他' 
+                weight: '<i class="material-icons">linear_scale</i> 重度',
+                theme: '<i class="material-icons">map</i> 主题',
+                mechanic: '<i class="material-icons">build</i> 机制',
+                other: '<i class="material-icons">star</i> 其他'
             },
             selectedCategoryTags: {
                 weight: new Set(),

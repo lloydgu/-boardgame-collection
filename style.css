@@ -655,3 +655,17 @@ body {
     font-size: 16px;
     vertical-align: middle;
 }
+
+/* 新增图标样式 */
+.meta i.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 18px;  /* 图标大小 */
+    color: #666;      /* 图标颜色 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;      /* 保持正方形比例 */
+    height: 24px;
+}
