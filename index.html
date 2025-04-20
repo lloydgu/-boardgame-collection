@@ -49,7 +49,7 @@
             <div class="category-filter">
                 <div class="category-group" v-for="(_, category) in categoryMap">
                     <h3 @click="toggleCategory(category)" class="category-header">
-                        {{ categoryMap[category] }}
+                        <span v-html="categoryMap[category]"></span>
                         <span class="toggle-icon">
                             <i v-if="categoryStates[category]" class="fas fa-chevron-down"></i>
                             <i v-else class="fas fa-chevron-right"></i>
