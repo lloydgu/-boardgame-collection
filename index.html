@@ -57,7 +57,7 @@
                             @click="toggleCategoryTag(category, tag)"
                         >
                             {{ tag }}
-                            <span class="tag-count">({{ getTagCount(category, tag) }})</span>
+                        
                         </span>
                     </div>
                 </transition>
@@ -66,7 +66,6 @@
         <!-- 当前筛选状态 -->
         <div class="active-filters">
             <div v-if="activeFilterCount > 0" class="active-tags">
-                当前筛选：
                 <template v-for="category in Object.keys(categoryMap)">
                     <span
                         v-for="tag in selectedCategoryTags[category]"
@@ -135,7 +134,7 @@
             </div>
         </div>
             <div v-else class="empty-state">
-                🎲 请选择筛选条件后点击"应用筛选"查看匹配的桌游
+                请选择筛选条件后点击"应用筛选"查看匹配的桌游
             </div>
     </div>
 
