@@ -3,9 +3,6 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            // 新增动画状态
-            isAnimating: false,
-            animationTarget: null,
             // 新增收藏夹
             favorites: [],
             isFavoriteModalActive: false,
@@ -44,8 +41,8 @@ createApp({
     },
     computed: {
 
-        // 排序后的游戏列表（覆盖原有filteredGames）
-        sortedGames() {
+          // 排序后的游戏列表（覆盖原有filteredGames）
+          sortedGames() {
             return [...this.filteredGames].sort((a, b) => {
               // 按难度数值排序（假设难度是数字类型）
               const diffA = parseInt(a.难度);
@@ -129,7 +126,6 @@ createApp({
         }
     },
     methods: {
-        
         showFavorites() {
         this.isFavoriteModalActive = true
         
@@ -152,14 +148,11 @@ createApp({
         }
         },
         beforeDestroy() {
-        // 组件销毁时移除监听
-        document.removeEventListener('click', this.handleDocumentClick)
+            // 组件销毁时移除监听
+            document.removeEventListener('click', this.handleDocumentClick)
         },
         // 收藏游戏
         toggleFavorite(game) {
-            this.isAnimating = true;
-            this.animationTarget = this.$refs.favoriteTarget;
-
             const gameId = game.名称; // 假设名称唯一
             const index = this.favoriteGameIds.indexOf(gameId);
             
@@ -172,56 +165,10 @@ createApp({
             this.favorites = this.favorites.filter(fav => fav.名称 !== gameId);
             this.showToast('已取消收藏');
             }
-            this.$refs.favoriteSound.currentTime = 0;
-            this.$refs.favoriteSound.play();
+            
             this.updateLocalStorage();
+        },
 
-            this.toggleFavorite(game);
-      
-            setTimeout(() => {
-              this.isAnimating = false;
-              this.animationTarget = null;
-            }, 800); // 与动画时长保持一致
-        },
-        // 新增动画处理方法
-        animateHeart() {
-            if (!this.isAnimating || !this.animationTarget) return;
-            
-            const heart = this.$refs.favoriteButton.querySelector('.fa-heart');
-            const folder = this.animationTarget;
-            
-            // 创建动画元素
-            const animatedHeart = document.createElement('i');
-            animatedHeart.className = 'fas fa-heart animated-heart';
-            animatedHeart.style.position = 'fixed';
-            animatedHeart.style.top = `${heart.offsetTop}px`;
-            animatedHeart.style.left = `${heart.offsetLeft}px`;
-            document.body.appendChild(animatedHeart);
-            
-            // 设置动画终点
-            const folderRect = folder.getBoundingClientRect();
-            const endX = folderRect.left + folder.offsetWidth / 2;
-            const endY = folderRect.top + folder.offsetHeight / 2;
-            
-            // 应用动画
-            animatedHeart.style.transform = `translate(-50%, -50%) translate(${endX}px, ${endY}px) scale(0.6)`;
-            animatedHeart.style.opacity = 0;
-            
-            // 动画结束后清理
-            setTimeout(() => {
-            animatedHeart.remove();
-            
-            // 更新悬浮按钮状态
-            this.$nextTick(() => {
-                folder.classList.add('active');
-            });
-            }, 800);
-        },
-        watch: {
-            isAnimating(newValue) {
-              if (newValue && this.animationTarget) {
-                this.animateHeart();
-              }}},
         // 加载本地存储的收藏数据
         loadFavorites() {
         const storedFavorites = localStorage.getItem('favoriteGames');
