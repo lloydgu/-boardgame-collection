@@ -236,7 +236,8 @@ createApp({
         // 数据加载
         async loadData() {
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbwRJiknJtO9j7stCeuOoQTyYjalDwRZHLCCSt8sdJB9dZvYbm6gU1HPaDj7ncjWIcuK/exec');
+                
+                const response = await fetch('https://script.google.com/macros/s/AKfycbzA0L_ik5Ygjpk2uBWUL2BeRY9Ip66r73VwDIfKtV-NyDJmYB7m-OCgDkdu1Cy9XOOH/exec');
                 // 'https://sheetdb.io/api/v1/anwk6x0uukfcf'
                 if (!response.ok) throw new Error('数据加载失败');
                 
