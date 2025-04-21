@@ -35,8 +35,8 @@ createApp({
             isLoading: true,
             error: null,
             playerCount: null,
-            filtersApplied: false
-
+            filtersApplied: false,
+            isFavoriteModalActive: false
         }
     },
     computed: {
@@ -126,6 +126,30 @@ createApp({
         }
     },
     methods: {
+        showFavorites() {
+        this.isFavoriteModalActive = true
+        
+        // 添加全局点击监听
+        document.addEventListener('click', this.handleDocumentClick)
+        },
+            // 隐藏收藏弹窗
+        hideFavorites() {
+        this.isFavoriteModalActive = false
+        
+        // 移除全局点击监听
+        document.removeEventListener('click', this.handleDocumentClick)
+        },
+        // 文档点击处理
+        handleDocumentClick(event) {
+        // 检查点击目标是否在弹窗外
+        if (!this.$el.querySelector('.favorite-modal').contains(event.target)) {
+            this.hideFavorites()
+        }
+        },
+        beforeDestroy() {
+            // 组件销毁时移除监听
+            document.removeEventListener('click', this.handleDocumentClick)
+        },
         // 收藏游戏
         toggleFavorite(game) {
             const gameId = game.名称; // 假设名称唯一

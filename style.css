@@ -825,7 +825,7 @@ body {
     cursor: pointer;
     z-index: 1000;
   }
-  
+
   .favorite-button.active {
     background: #ff6f61;
   }
@@ -888,3 +888,12 @@ body {
     z-index: 1002; /* 确保在弹窗之上 */
   }
   
+/* 保持原有样式不变 */
+.favorite-modal {
+  /* 新增点击穿透属性 */
+  pointer-events: none;
+  
+  &.active {
+    pointer-events: auto;
+  }
+}
