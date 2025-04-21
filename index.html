@@ -140,50 +140,50 @@
                               @click="toggleLike(game.id)"
                               :class="{ liked: isLiked(game.id) }"
                             >
-                             <!-- 评论按钮 -->
-                            <button 
-                            class="comment-btn"
-                            @click="showCommentBox = true"
-                            >
-                            <i class="fas fa-comment"></i>
-                            <span class="comment-count">{{ game.comments.length }}</span>
+                              <i class="fas fa-thumbs-up"></i>
+                              <span class="like-count">{{ game.likes }}</span>
                             </button>
-                        </div>
-                        </div>
-
-                            <!-- 评论框（点击评论按钮后显示） -->
-                            <div 
-                            v-if="showCommentBox"
-                            class="comment-box"
-                            >
-                            <textarea 
-                                v-model="newComment"
-                                placeholder="写下你的评价..."
-                                rows="3"
-                            ></textarea>
-                            <button @click="submitComment(game.id)">提交评论</button>
-                            </div>
-
-                            <!-- 评论列表 -->
-                            <div class="comments-list">
-                            <div 
-                                v-for="(comment, index) in game.comments"
-                                :key="index"
-                                class="comment-item"
-                            >
-                                <strong>{{ comment.user }}:</strong> {{ comment.text }}
-                            </div>
-                            </div>
-                            </div>
-                                <i class="fas fa-thumbs-up"></i>
-                                <span class="like-count">{{ game.likes }}</span>
-                                </button>
-                            <div class="meta">
-                                <span>  <i class="material-icons">people</i> {{ game.人数 }}</span>
-                                <span>  <i class="material-icons">timer</i> {{ game.时长 }}</span>
-                                <span>  <i class="material-icons">scale</i> {{ game.难度 }}</span>
-                            </div>
                             
+                            <!-- 评论按钮 -->
+                            <button 
+                              class="comment-btn"
+                              @click="showCommentBox = true"
+                            >
+                              <i class="fas fa-comment"></i>
+                              <span class="comment-count">{{ game.comments.length }}</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- 评论框（点击评论按钮后显示） -->
+                        <div 
+                          v-if="showCommentBox"
+                          class="comment-box"
+                        >
+                          <textarea 
+                            v-model="newComment"
+                            placeholder="写下你的评价..."
+                            rows="3"
+                          ></textarea>
+                          <button @click="submitComment(game.id)">提交评论</button>
+                        </div>
+  
+                        <!-- 评论列表 -->
+                        <div class="comments-list">
+                          <div 
+                            v-for="(comment, index) in game.comments"
+                            :key="index"
+                            class="comment-item"
+                          >
+                            <strong>{{ comment.user }}:</strong> {{ comment.text }}
+                          </div>
+                        </div>
+                        <div class="meta">
+                            <span>  <i class="material-icons">people</i> {{ game.人数 }}</span>
+                            <span>  <i class="material-icons">timer</i> {{ game.时长 }}</span>
+                            <span>  <i class="material-icons">scale</i> {{ game.难度 }}</span>
+                        </div>
+                        
                         <!-- 游戏标签展示 -->
                         <div class="game-tags">
                             <template v-for="tag in game.标签">
