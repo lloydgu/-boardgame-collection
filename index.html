@@ -160,11 +160,40 @@
                             </template>
                         </div>
                     </div>
+                      <!-- 收藏按钮 -->
+                    <button 
+                    class="favorite-button"
+                    :class="{ active: favoriteGameIds.includes(game.名称) }"
+                    @click="toggleFavorite(game)"
+                    >
+                    <i class="fas fa-heart"></i>
+                    </button>
                 </div>
+
             </div>
-                <div v-else class="empty-state">
-                    想玩什么？让可达鸭帮你找找！
+            <!-- 收藏浮窗 -->
+            <div class="favorite-modal" v-if="isFavoriteModalActive">
+                <div class="favorite-list">
+                  <h2>我的收藏</h2>
+                  <div v-if="favorites.length === 0" class="no-favorites">
+                    还没有收藏任何游戏，快去发现喜欢的吧！
+                  </div>
+                  <div v-else class="favorites-grid">
+                    <div 
+                      class="favorite-item"
+                      v-for="game in favorites"
+                      :key="game.名称"
+                      @click="selectFavoriteGame(game)"
+                    >
+                      <i class="fas fa-bookmark favorite-icon"></i>
+                      <span class="favorite-title">{{ game.名称 }}</span>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            <div v-else class="empty-state">
+                想玩什么？让可达鸭帮你找找！
+            </div>
         <!-- 在搜索框下方添加人数筛选 -->
         <script src="app.js"></script>
         </div>
