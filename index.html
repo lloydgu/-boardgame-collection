@@ -125,6 +125,8 @@
                 <div 
                     v-for="game in sortedGames"
                     class="game-card"
+                    @mouseenter="isHovered = true"
+                    @mouseleave="isHovered = false"
                 >
                     <img 
                         :src="game.封面图URL" 
@@ -174,7 +176,7 @@
             <!-- 新增悬浮按钮（固定在右下角） -->
             <div class="favorite-button-container" @click.stop="showFavorites">
                 <button class="favorite-button-folder">
-                  <i class="fas fa-bookmark"></i>
+                    <img src="image/吉利蛋.png" class="favorite-button-folder-icon">
                 </button>
               </div>
             <!-- 收藏浮窗 -->
@@ -191,6 +193,7 @@
                       :key="game.名称"
                       @click="selectFavoriteGame(game)"
                     >
+                      <i class="fas fa-bookmark favorite-icon"></i>
                       <span class="favorite-title">{{ game.名称 }}</span>
                     </div>
                   </div>

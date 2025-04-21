@@ -812,9 +812,9 @@ body {
     position: fixed;
     bottom: 30px;
     right: 8px;
-    background: var(--primary-color);
+    background: rgba(255, 255, 255, 0);
     color: white;
-    border-radius: 50%;
+    border-radius: 0%;
     width: 60px;
     height: 60px;
     font-size: 24px;
@@ -824,10 +824,16 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     cursor: pointer;
     z-index: 1000;
-  }
 
+  }
+  .favorite-button-folder-icon {
+    width: 50px;
+    height: 50px;
+    position: center;
+
+  }
   .favorite-button.active {
-    background: #ff6f61;
+    background: rgb(255 255 255);
   }
   
   .favorite-modal {
@@ -925,22 +931,22 @@ body {
   }
 
   /* 文档3（新增样式） */
-.favorite-button {
+  .favorite-button {
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(255,255,255,0.9);
+    bottom: 97px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.9);
     border: none;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
     color: #ff4b4b;
     cursor: pointer;
     transition: all 0.3s;
     opacity: 0;
     pointer-events: none;
-  }
+}
   
   .game-card:hover .favorite-button {
     opacity: 1;
@@ -949,4 +955,19 @@ body {
   
   .favorite-button.active {
     color: #4CAF50;
+  }
+
+  @keyframes customFly {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(150px, -100px) rotate(180deg); }
+    100% { transform: translate(300px, -200px) rotate(360deg); }
+  }
+
+  .animate-favorite {
+    animation: flyToFavorite 0.8s, leaveTrail 0.8s;
+  }
+  
+  @keyframes leaveTrail {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.5; }
   }
