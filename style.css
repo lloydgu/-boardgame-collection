@@ -814,7 +814,7 @@ body {
     right: 8px;
     background: rgba(255, 255, 255, 0);
     color: white;
-    border-radius: 0%;
+    border-radius: 100%;
     width: 60px;
     height: 60px;
     font-size: 24px;
@@ -824,7 +824,7 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     cursor: pointer;
     z-index: 1000;
-
+    border: 0px;
   }
   .favorite-button-folder-icon {
     width: 50px;
@@ -834,6 +834,7 @@ body {
   }
   .favorite-button.active {
     background: rgb(255 255 255);
+    color: #ff4b4b;
   }
   
   .favorite-modal {
@@ -850,6 +851,7 @@ body {
   }
   
   .favorite-list {
+    font-size: 0.7em;
     background: white;
     padding: 20px;
     border-radius: 15px;
@@ -868,6 +870,7 @@ body {
     border-radius: 10px;
     background: #f8f9fa;
     transition: all 0.3s;
+    font-size: 0.9em;
   }
   
   .favorite-item:hover {
@@ -876,13 +879,14 @@ body {
   }
   
   .favorite-icon {
-    font-size: 28px;
-    margin-right: 15px;
+    font-size: 14px;
+    margin-right: 9px;
     color: #ffca28;
+    margin-top: 2px;
   }
   
   .favorite-title {
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: bold;
   }
 
@@ -953,10 +957,6 @@ body {
     pointer-events: auto;
   }
   
-  .favorite-button.active {
-    color: #4CAF50;
-  }
-
   @keyframes customFly {
     0% { transform: translate(0,0); }
     50% { transform: translate(150px, -100px) rotate(180deg); }
@@ -970,4 +970,69 @@ body {
   @keyframes leaveTrail {
     0%, 100% { opacity: 0; }
     50% { opacity: 0.5; }
+  }
+
+  /* 文档3（新增动画样式） */
+.favorite-button .fa-heart {
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .animate-favorite {
+    animation: flyToFavorite 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  @keyframes flyToFavorite {
+    0% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    30% {
+      transform: scale(1.2) rotate(180deg);
+      opacity: 0.8;
+    }
+    70% {
+      transform: translate(150px, -150px) scale(0.8) rotate(360deg);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate(200px, -200px) scale(0.6) rotate(540deg);
+      opacity: 0;
+    }
+  }
+  
+  /* 收藏夹动画接收 */
+  .favorite-icon-container {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 10px auto;
+  }
+  
+  .favorite-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #ffca28;
+    transition: transform 0.3s ease-out;
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  
+  .animate-favorite + .favorite-icon-container .favorite-icon {
+    animation: flyFromFavorite 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+  
+  @keyframes flyFromFavorite {
+    0% {
+      transform: translateY(-20px) scale(0.6);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
   }

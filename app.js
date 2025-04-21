@@ -3,6 +3,8 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            // 新增动画状态
+            isAnimating: false,
             // 新增收藏夹
             favorites: [],
             isFavoriteModalActive: false,
@@ -41,8 +43,8 @@ createApp({
     },
     computed: {
 
-          // 排序后的游戏列表（覆盖原有filteredGames）
-          sortedGames() {
+        // 排序后的游戏列表（覆盖原有filteredGames）
+        sortedGames() {
             return [...this.filteredGames].sort((a, b) => {
               // 按难度数值排序（假设难度是数字类型）
               const diffA = parseInt(a.难度);
@@ -126,6 +128,7 @@ createApp({
         }
     },
     methods: {
+        
         showFavorites() {
         this.isFavoriteModalActive = true
         
@@ -153,6 +156,13 @@ createApp({
         },
         // 收藏游戏
         toggleFavorite(game) {
+            this.isAnimating = true;
+      
+            setTimeout(() => {
+              this.$nextTick(() => {
+                this.isAnimating = false;
+              });
+            }, 800); 
             const gameId = game.名称; // 假设名称唯一
             const index = this.favoriteGameIds.indexOf(gameId);
             
