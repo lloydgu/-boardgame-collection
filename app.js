@@ -168,15 +168,6 @@ createApp({
             
             this.updateLocalStorage();
         },
-        // 显示收藏界面
-        showFavorites() {
-            this.isFavoriteModalActive = true;
-        },
-
-        // 隐藏收藏界面
-        hideFavorites() {
-            this.isFavoriteModalActive = false;
-        },
 
         // 加载本地存储的收藏数据
         loadFavorites() {
