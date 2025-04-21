@@ -989,18 +989,7 @@ body {
   }
   
   /* 悬浮按钮动画接收 */
-  .favorite-button-folder {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease-out;
-  }
-  
+
   .favorite-button-folder:hover {
     transform: scale(1.1);
   }
