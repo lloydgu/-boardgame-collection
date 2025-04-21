@@ -126,21 +126,19 @@
                     v-for="game in sortedGames"
                     class="game-card"
                 >
-                <div class="cover-container">
                     <img 
                         :src="game.封面图URL" 
                         :alt="game.名称" 
                         class="game-cover"
                     >
+                    <!-- 收藏按钮 -->
                     <button 
-                        class="favorite-button"
-                        :class="{ active: favoriteGameIds.includes(game.名称) }"
-                        @click.stop="toggleFavorite(game)"
-                    >
-                        <i class="fas fa-heart"></i>
+                    class="favorite-button"
+                    :class="{ active: favoriteGameIds.includes(game.名称) }"
+                    @click.stop="toggleFavorite(game)"
+                >
+                    <i class="fas fa-heart"></i>
                     </button>
-                </div>
-                    
                     <div class="game-info">
                         <h3>{{ game.名称 }}</h3>
                         <div class="meta">
