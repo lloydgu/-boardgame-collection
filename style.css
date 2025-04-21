@@ -913,3 +913,13 @@ body {
     background: rgba(0,0,0,0.5);
     z-index: -1;
   }
+
+  @media (max-width: 768px) {
+    .favorite-modal {
+      padding: 10px;
+    }
+    
+    .favorite-item {
+      padding: 10px;
+    }
+  }
