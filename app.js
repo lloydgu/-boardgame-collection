@@ -3,8 +3,6 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            // 新增动画状态
-            isAnimating: false,
             // 新增收藏夹
             favorites: [],
             isFavoriteModalActive: false,
