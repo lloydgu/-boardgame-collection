@@ -171,12 +171,7 @@
                 </div>
                     
             </div>
-            <!-- 新增悬浮按钮（固定在右下角） -->
-            <div class="favorite-button-container" @click.stop="showFavorites">
-                <button class="favorite-button-folder">
-                  <i class="fas fa-bookmark"></i>
-                </button>
-              </div>
+
             <!-- 收藏浮窗 -->
             <div class="favorite-modal" v-if="isFavoriteModalActive" @click.self="hideFavorites">
                 <div class="favorite-list">

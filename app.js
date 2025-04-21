@@ -142,7 +142,8 @@ createApp({
         // 文档点击处理
         handleDocumentClick(event) {
         // 检查点击目标是否在弹窗外
-        if (!this.$el.querySelector('.favorite-modal').contains(event.target)) {
+        const modal = document.querySelector('.favorite-modal');
+        if (modal && !modal.contains(event.target)) {
             this.hideFavorites()
         }
         },
