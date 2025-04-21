@@ -3,10 +3,6 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            likes: {}, // 存储每个游戏的点赞状态 { gameId: boolean }
-            activeGameId: null, // 当前显示评论框的游戏ID
-            newComment: '', // 新评论内容
-            commentBoxPosition: '100px' ,// 评论框初始位置
             // 新增排序状态
             sortOrder: 'asc', // 可选值：'asc'（升序）或 'desc'（降序）
             games: [],
@@ -40,13 +36,8 @@ createApp({
         }
     },
     computed: {
-        isLiked() {
-            return (gameId) => this.games.find(g => g.id === gameId).isLiked || false
-          },
-        // sortOrderLabel() {
-        //     return `${this.sortOrder === 'asc' ? '低到高' : '高到低'}`
-        //   },
-        // 排序后的游戏列表（覆盖原有filteredGames）
+
+          // 排序后的游戏列表（覆盖原有filteredGames）
           sortedGames() {
             return [...this.filteredGames].sort((a, b) => {
               // 按难度数值排序（假设难度是数字类型）
@@ -131,23 +122,6 @@ createApp({
         }
     },
     methods: {
-        // 点赞切换
-        toggleLike(gameId) {
-        const game = this.games.find(g => g.id === gameId)
-        game.isLiked = !game.isLiked
-        game.likes += game.isLiked ? 1 : -1
-        },
-        // 提交评论
-        submitComment(gameId) {
-        if (this.newComment.trim()) {
-          this.games.find(g => g.id === gameId).comments.push({
-            user: '当前用户',
-            text: this.newComment
-          })
-          this.newComment = ''
-          this.showCommentBox = false
-        }
-        },
         toggleSortOrder() {
             this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
           },

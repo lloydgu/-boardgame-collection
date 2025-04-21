@@ -133,55 +133,12 @@
                     >
                     <div class="game-info">
                         <h3>{{ game.名称 }}</h3>
-                        <!-- 新增点赞和评论按钮 -->
-                        <div class="card-actions">
-                        <!-- 点赞按钮 -->
-                        <button 
-                            class="like-btn"
-                            @click="toggleLike(game.id)"
-                            :class="{ liked: isLiked(game.id) }"
-                        >
-                            <i class="fas fa-thumbs-up"></i>
-                            <span class="like-count">{{ game.likes }}</span>
-                        </button>
-                        
-                        <!-- 评论按钮 -->
-                        <button 
-                            class="comment-btn"
-                            @click="showCommentBox = game.id"
-                        >
-                            <i class="fas fa-comment"></i>
-                            <span class="comment-count">{{ game.comments.length }}</span>
-                        </button>
-                    </div>
-
-
                         <div class="meta">
                             <span>  <i class="material-icons">people</i> {{ game.人数 }}</span>
                             <span>  <i class="material-icons">timer</i> {{ game.时长 }}</span>
                             <span>  <i class="material-icons">scale</i> {{ game.难度 }}</span>
                         </div>
-                                             <!-- 新增点赞和评论按钮 -->
-                        <div class="card-actions">
-                            <!-- 点赞按钮 -->
-                            <button 
-                                class="like-btn"
-                                @click="toggleLike(game.id)"
-                                :class="{ liked: isLiked(game.id) }"
-                            >
-                                <i class="fas fa-thumbs-up"></i>
-                                <span class="like-count">{{ game.likes }}</span>
-                            </button>
-                            
-                            <!-- 评论按钮 -->
-                            <button 
-                                class="comment-btn"
-                                @click="showCommentBox = game.id"
-                            >
-                                <i class="fas fa-comment"></i>
-                                <span class="comment-count">{{ game.comments.length }}</span>
-                            </button>
-                        </div>
+                        
                         <!-- 游戏标签展示 -->
                         <div class="game-tags">
                             <template v-for="tag in game.标签">
@@ -205,26 +162,11 @@
                     </div>
                 </div>
             </div>
-            <!-- 评论框（动态绑定到当前游戏） -->
-            <div 
-            v-if="activeGameId"
-            class="comment-box"
-            :style="{ top: commentBoxPosition }"
-        >
-            <textarea 
-                v-model="newComment"
-                placeholder="写下你的评价..."
-                rows="3"
-            ></textarea>
-            <button @click="submitComment(activeGameId)">提交评论</button>
-            </div>
-
-            <div v-else class="empty-state">
+                <div v-else class="empty-state">
                     请选择筛选条件后点击"应用筛选"查看匹配的桌游
-            </div>
+                </div>
         <!-- 在搜索框下方添加人数筛选 -->
         <script src="app.js"></script>
-
         </div>
 
     </div>
