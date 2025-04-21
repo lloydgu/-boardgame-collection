@@ -9,7 +9,7 @@
 
 /* 更新现有颜色引用 */
 body {
-    background-color: #f2ecde;
+    background-color: #ffffff;
     color: var(--text-color);
 }
 
@@ -236,7 +236,6 @@ body {
 }
 
 
-
 /* 搜索图标 */
 .search-icon {
     cursor: pointer;
@@ -247,6 +246,17 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+@media (max-width: 768px) {
+    .search-icon {
+        cursor: pointer;
+        font-size: 22px;
+        padding: 8px;
+        background: rgba(255,255,255,0);
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+}
 
 /* 搜索框容器 */
 .search-box {
@@ -517,8 +527,9 @@ body {
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    margin-top: -10px;
 }
+
 
 /* 调整游戏卡片样式 */
 .game-card {
