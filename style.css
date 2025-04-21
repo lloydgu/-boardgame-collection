@@ -963,8 +963,8 @@ body {
     pointer-events: none;
 }
   
-  .game-card:hover .favorite-button {
+  /* .game-card:hover .favorite-button {
     opacity: 1;
     pointer-events: auto;
-  }
+  } */
   
