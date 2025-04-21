@@ -954,3 +954,8 @@ body {
   
 
   
+.game-card .favorite-button {
+    display: block; /* 始终显示按钮 */
+    opacity: 0.6;   /* 可选：降低初始透明度 */
+    transition: opacity 0.3s; /* 平滑过渡 */
+}
