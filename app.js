@@ -3,10 +3,10 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            // 当前显示的评论框游戏ID
-            activeGameId: null,
-            // 新评论内容
-            newComment: '',
+            likes: {}, // 存储每个游戏的点赞状态 { gameId: boolean }
+            activeGameId: null, // 当前显示评论框的游戏ID
+            newComment: '', // 新评论内容
+            commentBoxPosition: '100px' ,// 评论框初始位置
             // 新增排序状态
             sortOrder: 'asc', // 可选值：'asc'（升序）或 'desc'（降序）
             games: [],
@@ -146,7 +146,7 @@ createApp({
           })
           this.newComment = ''
           this.showCommentBox = false
-            }
+        }
         },
         toggleSortOrder() {
             this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
