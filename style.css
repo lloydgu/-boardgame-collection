@@ -890,14 +890,7 @@ body {
     font-weight: bold;
   }
 
-/* 新增悬浮按钮样式 */
-.favorite-button-container {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 1002; /* 确保在弹窗之上 */
-  }
-  
+
 /* 保持原有样式不变 */
 .favorite-modal {
   /* 新增点击穿透属性 */
@@ -952,5 +945,15 @@ body {
     pointer-events: none;
 }
   
+/* 新增封面容器 */
+.cover-container {
+    position: relative;
+    height: 200px; /* 与封面图高度一致 */
+}
 
-  
+
+.favorite-button:hover {
+    transform: scale(1.1);
+}
+
+
