@@ -5,6 +5,7 @@ createApp({
         return {
             // 新增动画状态
             isAnimating: false,
+            animationTarget: null,
             // 新增收藏夹
             favorites: [],
             isFavoriteModalActive: false,
@@ -151,18 +152,14 @@ createApp({
         }
         },
         beforeDestroy() {
-            // 组件销毁时移除监听
-            document.removeEventListener('click', this.handleDocumentClick)
+        // 组件销毁时移除监听
+        document.removeEventListener('click', this.handleDocumentClick)
         },
         // 收藏游戏
         toggleFavorite(game) {
             this.isAnimating = true;
-      
-            setTimeout(() => {
-              this.$nextTick(() => {
-                this.isAnimating = false;
-              });
-            }, 800); 
+            this.animationTarget = this.$refs.favoriteTarget;
+
             const gameId = game.名称; // 假设名称唯一
             const index = this.favoriteGameIds.indexOf(gameId);
             
@@ -178,8 +175,52 @@ createApp({
             this.$refs.favoriteSound.currentTime = 0;
             this.$refs.favoriteSound.play();
             this.updateLocalStorage();
-        },
 
+            this.toggleFavorite(game);
+      
+            setTimeout(() => {
+              this.isAnimating = false;
+              this.animationTarget = null;
+            }, 800); // 与动画时长保持一致
+        },
+       // 新增动画处理方法
+       handleAnimationEnd() {
+        if (this.animationTarget) {
+          const newHeart = document.createElement('i');
+          newHeart.className = 'fas fa-heart favorite-icon';
+          this.animationTarget.appendChild(newHeart);
+          
+          // 触发反向动画
+          this.animationTarget.classList.add('animate-favorite-reverse');
+          
+          // 清理状态
+          setTimeout(() => {
+            this.animationTarget.classList.remove('animate-favorite-reverse');
+          }, 800);
+        }},
+        watch: {
+            isAnimating(newValue) {
+              if (newValue && this.animationTarget) {
+                // 获取悬浮按钮位置
+                const targetRect = this.animationTarget.getBoundingClientRect();
+                
+                // 创建动画元素
+                const animatedHeart = document.createElement('i');
+                animatedHeart.className = 'fas fa-heart animated-heart';
+                animatedHeart.style.position = 'fixed';
+                animatedHeart.style.top = `${this.$el.offsetTop}px`;
+                animatedHeart.style.left = `${this.$el.offsetLeft}px`;
+                document.body.appendChild(animatedHeart);
+                
+                // 设置动画终点
+                animatedHeart.style.setProperty('--end-x', `${targetRect.left}px`);
+                animatedHeart.style.setProperty('--end-y', `${targetRect.top}px`);
+                
+                // 触发动画
+                animatedHeart.addEventListener('animationend', () => {
+                  animatedHeart.remove();
+                  this.handleAnimationEnd();
+                });}}},
         // 加载本地存储的收藏数据
         loadFavorites() {
         const storedFavorites = localStorage.getItem('favoriteGames');

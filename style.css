@@ -833,8 +833,8 @@ body {
 
   }
   .favorite-button.active {
-    background: rgb(255 255 255);
-    color: #ff4b4b;
+    background: #ff4b4b;
+    color: rgb(255 255 255);
   }
   
   .favorite-modal {
@@ -983,6 +983,17 @@ body {
     animation: flyToFavorite 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
   
+/* 文档3（新增动画样式） */
+.favorite-button .fa-heart {
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .animate-favorite {
+    animation: flyToFavorite 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
   @keyframes flyToFavorite {
     0% {
       transform: scale(1) rotate(0deg);
@@ -1002,12 +1013,15 @@ body {
     }
   }
   
-  /* 收藏夹动画接收 */
-  .favorite-icon-container {
-    position: relative;
+  /* 悬浮按钮动画接收 */
+  .favorite-target {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 40px;
     height: 40px;
-    margin: 10px auto;
+    pointer-events: none;
   }
   
   .favorite-icon {
@@ -1022,7 +1036,7 @@ body {
     opacity: 0;
   }
   
-  .animate-favorite + .favorite-icon-container .favorite-icon {
+  .animate-favorite-reverse {
     animation: flyFromFavorite 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
   }
   
@@ -1035,4 +1049,31 @@ body {
       transform: translateY(0) scale(1);
       opacity: 1;
     }
+  }
+
+  /* 新增关键帧动画 */
+@keyframes heartFlight {
+    0% {
+      transform: translate(var(--start-x, 0), var(--start-y, 0)) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--end-x, 0), var(--end-y, 0)) scale(0.6);
+      opacity: 0;
+    }
+  }
+  
+  .animated-heart {
+    position: absolute;
+    pointer-events: none;
+    animation: heartFlight 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .animated-heart {
+    animation: heartFlight 0.8s, leaveTrail 0.8s;
+  }
+  
+  @keyframes leaveTrail {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.5; }
   }
