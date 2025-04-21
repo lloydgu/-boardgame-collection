@@ -126,6 +126,12 @@
                     v-for="game in sortedGames"
                     class="game-card"
                 >
+                <button 
+                class="favorite-btn"
+                @click.stop="toggleFavorite(game)"
+                >
+                <i class="fas fa-heart" :class="{ active: game.isFavorited }"></i>
+                </button>
                     <img 
                         :src="game.封面图URL" 
                         :alt="game.名称" 
@@ -170,6 +176,33 @@
         </div>
 
     </div>
-    
+    <div class="floating-favorites-btn" @click="showFavorites">
+        <i class="fas fa-heart"></i>
+        <span class="badge">{{ favoritedGames.length }}</span>
+      </div>
+      
+      <div 
+        class="favorites-popup" 
+        v-if="showFavorites" 
+        ref="favoriteList"
+      >
+        <div class="popup-content">
+          <h2>我的收藏</h2>
+          <div class="game-list">
+            <div 
+              v-for="game in favoritedGames" 
+              :key="game.id"
+              class="game-card"
+            >
+              <img :src="game.封面图URL" :alt="game.名称">
+              <div class="game-info">
+                <h3>{{ game.名称 }}</h3>
+                <p>人数：{{ game.人数 }} | 时长：{{ game.时长 }} | 难度：{{ game.难度 }}</p>
+              </div>
+            </div>
+          </div>
+          <button class="close-btn" @click="closeFavorites">×</button>
+        </div>
+      </div>
 </body>
 </html>

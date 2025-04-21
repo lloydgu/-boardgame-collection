@@ -3,6 +3,8 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            favoritedGames: [], // 存储收藏的游戏
+            showFavorites: false, // 控制收藏列表显示状态
             // 新增排序状态
             sortOrder: 'asc', // 可选值：'asc'（升序）或 'desc'（降序）
             games: [],
@@ -122,6 +124,29 @@ createApp({
         }
     },
     methods: {
+        // 切换收藏状态
+        toggleFavorite(game) {
+            const index = this.favoritedGames.findIndex(g => g.id === game.id);
+            if (index > -1) {
+            this.favoritedGames.splice(index, 1);
+            } else {
+            this.favoritedGames.push({...game, isFavorited: true});
+            }
+        },
+        // 显示收藏列表
+        showFavorites() {
+            this.showFavorites = true;
+        },
+        // 关闭收藏列表
+        closeFavorites() {
+            this.showFavorites = false;
+        },
+        // 点击外部关闭收藏列表
+        handleDocumentClick(e) {
+            if (!this.$refs.favoriteList?.contains(e.target)) {
+            this.closeFavorites();
+            }
+        },
         toggleSortOrder() {
             this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
           },
@@ -261,8 +286,11 @@ createApp({
         }
     },
     mounted() {
-        
+        document.addEventListener('click', this.handleDocumentClick);
         this.loadData();
-    }
+    },
+    beforeUnmount() {
+        document.removeEventListener('click', this.handleDocumentClick);
+      }
 }).mount('#app');
 
