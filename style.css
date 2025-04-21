@@ -792,24 +792,6 @@ body {
 }
 
 
-/* 在 style.css 中添加以下样式 */
-.favorite-button {
-    position: fixed;
-    bottom: 86px;
-    right: 8px;
-    background: var(--primary-color);
-    color: white;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    cursor: pointer;
-    z-index: 1000;
-  }
 
   /* @media (max-width: 768px) {
     .favorite-button {
@@ -959,10 +941,15 @@ body {
     color: #ff4b4b;
     cursor: pointer;
     transition: all 0.3s;
-    opacity: 0;
-    pointer-events: none;
+    cursor: pointer;
+    display: flex;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 1;    
 }
-  
+.game-card {
+    position: relative; /* 新增 */
+
+}
   .game-card:hover .favorite-button {
     opacity: 1;
     pointer-events: auto;
