@@ -961,10 +961,11 @@ body {
     transition: all 0.3s;
     opacity: 0;
     pointer-events: none;
+    z-index: 10; 
 }
   
-  .game-card:hover .favorite-button {
-    opacity: 1;
-    pointer-events: auto;
-  }
+
   
+  .game-card {
+    position: relative;        /* 开启相对定位 */
+}
