@@ -154,13 +154,7 @@ createApp({
         },
         // 收藏游戏
         toggleFavorite(game) {
-            this.isAnimating = true;
-      
-            setTimeout(() => {
-              this.$nextTick(() => {
-                this.isAnimating = false;
-              });
-            }, 800); 
+
             const gameId = game.名称; // 假设名称唯一
             const index = this.favoriteGameIds.indexOf(gameId);
             
@@ -173,8 +167,7 @@ createApp({
             this.favorites = this.favorites.filter(fav => fav.名称 !== gameId);
             this.showToast('已取消收藏');
             }
-            this.$refs.favoriteSound.currentTime = 0;
-            this.$refs.favoriteSound.play();
+
             this.updateLocalStorage();
         },
 
