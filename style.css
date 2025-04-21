@@ -205,10 +205,11 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 3px 6px;
+    padding: 5px 8px;
     border-radius: 15px;
     font-size: 0.85em;
     margin: 2px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
 }
 
 
@@ -396,9 +397,6 @@ body {
     color: #666;
 }
 
-.tags {
-    margin-top: 8px;
-}
 
 /* 折叠动画 */
 .slide-enter-active,
@@ -536,7 +534,8 @@ body {
 
 /* 修改游戏卡片标签样式 */
 .tags {
-    margin-top: 20px;
+    margin-top: -10px;
+    margin-bottom: -10px;
     display: flex;
     flex-wrap: wrap;
     gap: 1px; /* 缩小标签间距 */
