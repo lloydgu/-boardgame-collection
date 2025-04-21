@@ -165,7 +165,8 @@ createApp({
             this.favorites = this.favorites.filter(fav => fav.名称 !== gameId);
             this.showToast('已取消收藏');
             }
-            
+            this.$refs.favoriteSound.currentTime = 0;
+            this.$refs.favoriteSound.play();
             this.updateLocalStorage();
         },
 
