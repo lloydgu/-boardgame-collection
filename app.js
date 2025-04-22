@@ -3,6 +3,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            hasAppliedFilters: false,
             loadedImages: new Set(), 
 
             // 新增收藏夹
@@ -356,12 +357,7 @@ createApp({
         this.loadFavorites();
         this.loadData();
 
-    },
-    beforeUnmount() {
-        // 清理观察器
-        if (this.observer) {
-          this.observer.disconnect()
-        }
-      }
+    }
+
 }).mount('#app');
 
