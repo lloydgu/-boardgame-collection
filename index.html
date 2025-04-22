@@ -202,8 +202,12 @@
                     
             </div>
 
-            <div v-else class="empty-state">
+            <div v-if="!hasAppliedFilters" class="empty-state">
                 想玩什么？让可达鸭帮你找找！
+            </div>
+
+            <div v-if="hasAppliedFilters & potentialGameCount > 0" class="empty-state">
+                呜呜，找不到鸭...
             </div>
         <!-- 在搜索框下方添加人数筛选 -->
         <script src="app.js"></script>
