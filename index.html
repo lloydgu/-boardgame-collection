@@ -153,17 +153,14 @@
                 <div 
                     v-for="game in sortedGames"
                     class="game-card"
-                    ref="cardElements"
                     @mouseenter="isHovered = true"
                     @mouseleave="isHovered = false"
                 >
-                <img 
-                :data-src="game.封面图URL" 
-                :src="loadedImages.has(game.名称) ? game.封面图URL : 'image/胖丁.png'"
-                :data-game="game.名称"
-                class="game-cover"
-                @load="handleImageLoad"
-                >
+                    <img 
+                        :src="game.封面图URL" 
+                        :alt="game.名称" 
+                        class="game-cover"
+                    >
                     <div class="game-info">
                         <h3>{{ game.名称 }}</h3>
                         <div class="meta">

@@ -3,9 +3,6 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            hasAppliedFilters: false,
-            loadedImages: new Set(), 
-
             // 新增收藏夹
             favorites: [],
             isFavoriteModalActive: false,
@@ -51,12 +48,7 @@ createApp({
               const diffA = parseInt(a.难度);
               const diffB = parseInt(b.难度);
               return this.sortOrder === 'asc' ? diffA - diffB : diffB - diffA;
-            }).map(game => {
-                // 当游戏出现在筛选结果中时标记为需要加载
-                if (!this.loadedImages.has(game.名称)) {
-                    this.$set(this.loadedImages, game.名称, true)
-                }
-                return game});
+            });
           },
         
         // 组合过滤逻辑
@@ -134,12 +126,7 @@ createApp({
         }
     },
     methods: {
-        applyFilters() {
-            // 强制清空已加载记录
-            this.loadedImages.clear()
-            this.hasAppliedFilters = true
-            this.filtersApplied = true
-        },
+        
         showFavorites() {
         this.isFavoriteModalActive = true
         
@@ -214,7 +201,11 @@ createApp({
         toggleSortOrder() {
             this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
         },
-
+        // 新增应用筛选方法
+        applyFilters() {
+            this.hasAppliedFilters = true;
+            this.filtersApplied = true;
+        },
             toggleSearch() {
             this.showSearch = !this.showSearch
             
@@ -321,7 +312,7 @@ createApp({
         // 数据加载
         async loadData() {
             try {
-
+                
                 const response = await fetch('https://script.google.com/macros/s/AKfycbzA0L_ik5Ygjpk2uBWUL2BeRY9Ip66r73VwDIfKtV-NyDJmYB7m-OCgDkdu1Cy9XOOH/exec');
                 // 'https://sheetdb.io/api/v1/anwk6x0uukfcf'
                 if (!response.ok) throw new Error('数据加载失败');
@@ -348,8 +339,6 @@ createApp({
     mounted() {
         this.loadFavorites();
         this.loadData();
-
     }
-
 }).mount('#app');
 
