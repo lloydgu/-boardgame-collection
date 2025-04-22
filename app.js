@@ -159,6 +159,17 @@ createApp({
             const index = this.favoriteGameIds.indexOf(gameId);
             
             if (index === -1) {
+                
+            this.$nextTick(() => {
+                const egg = this.$refs.luckyEgg;
+                    if (egg) {
+                      egg.classList.add('egg-animation');
+                      setTimeout(() => {
+                        egg.classList.remove('egg-animation');
+                      }, 600);
+                    }
+                });
+                
             this.favoriteGameIds.push(gameId);
             this.favorites.push(game);
             } else {

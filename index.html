@@ -15,12 +15,12 @@
     <div id="app">
         
         <!-- 新增悬浮按钮（固定在右下角） -->
-        <div class="favorite-button-container" @click.stop="showFavorites">
+        <div class="favorite-button-container" @click.stop="showFavorites"  ref="luckyEgg">
             <button class="favorite-button-folder">
                 <img src="image/吉利蛋.png" class="favorite-button-folder-icon">
             </button>
         </div>
-        
+
         <!-- 收藏浮窗 -->
         <div class="favorite-modal" v-if="isFavoriteModalActive" @click.stop="hideFavorites">
             <div class="favorite-list">
