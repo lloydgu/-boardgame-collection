@@ -9,7 +9,7 @@
 
 /* 更新现有颜色引用 */
 body {
-    background-color: #ffffff;
+    background-color: #ffffffd9;
     color: var(--text-color);
 }
 
@@ -526,7 +526,7 @@ body {
     background-color: #ffffffd9;
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
     margin-top: -10px;
 }
 
@@ -540,9 +540,18 @@ body {
 /* 调整分类筛选区样式 */
 .category-filter {
     background:#c9d6ba59;
-    border: 1px solid #e0e0e0; /* 添加边框 */
+
 }
 
+
+@media (max-width: 768px) {
+    .category-filter {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+    
+
+}
 /* 修改游戏卡片标签样式 */
 .tags {
     margin-top: -10px;

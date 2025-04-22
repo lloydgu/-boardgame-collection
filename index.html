@@ -182,9 +182,8 @@
             <!-- 收藏浮窗 -->
             <div class="favorite-modal" v-if="isFavoriteModalActive" @click.stop="hideFavorites">
                 <div class="favorite-list">
-                  <h2>我的收藏</h2>
                   <div v-if="favorites.length === 0" class="no-favorites">
-                    还没有收藏任何游戏，快去发现喜欢的吧！
+                    吉利蛋还没有收到爱心哦
                   </div>
                   <div v-else class="favorites-grid">
                     <div 
@@ -199,7 +198,7 @@
                   </div>
                 </div>
               </div>
-            <div v-else class="empty-state">
+            <div v-if="!hasAppliedFilters" class="empty-state">
                 想玩什么？让可达鸭帮你找找！
             </div>
         <!-- 在搜索框下方添加人数筛选 -->
