@@ -161,11 +161,10 @@ createApp({
             if (index === -1) {
             this.favoriteGameIds.push(gameId);
             this.favorites.push(game);
-            this.showToast('已收藏');
             } else {
             this.favoriteGameIds.splice(index, 1);
             this.favorites = this.favorites.filter(fav => fav.名称 !== gameId);
-            this.showToast('已取消收藏');
+
             }
 
             this.updateLocalStorage();
@@ -186,11 +185,7 @@ createApp({
             localStorage.setItem('favoriteGames', JSON.stringify(this.favoriteGameIds));
         },
 
-        // 显示消息提示
-        showToast(message) {
-            this.$toast.add({ severity: 'success', summary: message, life: 3000 });
-        },
-        
+       
 
         toggleSortOrder() {
             this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';

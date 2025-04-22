@@ -19,11 +19,11 @@
             <button class="favorite-button-folder">
                 <img src="image/吉利蛋.png" class="favorite-button-folder-icon">
             </button>
-            </div>
+        </div>
+        
         <!-- 收藏浮窗 -->
         <div class="favorite-modal" v-if="isFavoriteModalActive" @click.stop="hideFavorites">
             <div class="favorite-list">
-                <h2>我的收藏</h2>
                 <div v-if="favorites.length === 0" class="no-favorites">
                 还没有收藏任何游戏，快去发现喜欢的吧！
                 </div>
@@ -39,7 +39,8 @@
                 </div>
                 </div>
             </div>
-            </div>
+        </div>
+
         <!-- 替换原有搜索按钮 -->
         <div class="search-container">
             <div class="search-icon" @click="toggleSearch">🔍</div>

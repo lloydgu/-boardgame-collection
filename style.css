@@ -243,7 +243,7 @@ body {
     padding: 5px;
     background: rgba(255,255,255,0);
     border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
 }
 
 @media (max-width: 768px) {
@@ -253,7 +253,7 @@ body {
         padding: 8px;
         background: rgba(255,255,255,0);
         border-radius: 50%;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
     }
 
 }
@@ -819,11 +819,9 @@ body {
     border-radius: 100%;
     width: 60px;
     height: 60px;
-    font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     cursor: pointer;
     z-index: 1000;
     border: 0px;
@@ -968,7 +966,6 @@ body {
 
 }
   .game-card:hover .favorite-button {
-    opacity: 1;
     pointer-events: auto;
   }
   
