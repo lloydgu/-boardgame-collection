@@ -153,13 +153,13 @@
                 <div 
                     v-for="game in sortedGames"
                     class="game-card"
+                    ref="cardElements"
                     @mouseenter="isHovered = true"
                     @mouseleave="isHovered = false"
-                    ref="cardElements"
                 >
                 <img 
                 :data-src="game.封面图URL" 
-                :src="lazyLoadedImages.has(game.名称) ? game.封面图URL : 'placeholder.jpg'"
+                :src="lazyLoadedImages.has(game.名称) ? game.封面图URL : 'image/胖丁.png'"
                 :data-game="game.名称"
                 class="game-cover"
                 @load="handleImageLoad"
