@@ -993,7 +993,7 @@ body {
   /* 添加加载过渡效果 */
   .game-cover {
     transition: opacity 0.3s;
-    background: #f0f0f0 url(image/胖丁.png) no-repeat center;
+
   }
   .game-cover[src] {
     opacity: 1;

@@ -3,7 +3,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            lazyLoadedImages: new Set(), // 记录已加载的图片
+            lazyLoadedImages: {},  // 记录已加载的图片
             observer: null, // Intersection Observer实例
 
             // 新增收藏夹
@@ -362,15 +362,15 @@ createApp({
         this.loadFavorites();
         this.loadData();
           // 初始化Intersection Observer
-        this.observer = new IntersectionObserver((entries) => {
+          this.observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const gameName = entry.target.dataset.game
-                this.lazyLoadedImages.add(gameName)
-            }
+                if (entry.isIntersecting) {
+                    const gameName = entry.target.dataset.game
+                    this.$set(this.lazyLoadedImages, gameName, true) // 响应式更新
+                }
             })
         }, {
-            rootMargin: '0px 0px 200px 0px' // 提前200px加载
+            rootMargin: '0px 0px 200px 0px'
         })
     },
     beforeUnmount() {

@@ -159,7 +159,7 @@
                 >
                 <img 
                 :data-src="game.封面图URL" 
-                :src="lazyLoadedImages.has(game.名称) ? game.封面图URL : 'image/胖丁.png'"
+                :src="lazyLoadedImages[game.名称] ? game.封面图URL : 'image/胖丁.png'"
                 :data-game="game.名称"
                 class="game-cover"
                 @load="handleImageLoad"
