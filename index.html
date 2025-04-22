@@ -153,10 +153,6 @@
                 <div 
                     v-for="game in sortedGames"
                     class="game-card"
-                    v-lazy="game.名称"
-                    v-if="loadedGames.includes(game.名称)"
-                    :data-game="game.名称" 
-                
                     @mouseenter="isHovered = true"
                     @mouseleave="isHovered = false"
                 >

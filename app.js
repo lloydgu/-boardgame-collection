@@ -1,38 +1,8 @@
 const { createApp } = Vue;
 
-createApp(
-    {
-
-    directives: {
-        lazy: {
-            mounted(el, binding) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            binding.instance.$emit('load-game', binding.value)
-                            observer.unobserve(el)
-                        }
-                    })
-                }, { rootMargin: '0px 0px 200px 0px' })
-                observer.observe(el)
-            }
-        }
-    },
-    
-    created() {
-        this.$on('load-game', gameId => {
-            if (!this.loadedGames.includes(gameId)) {
-                this.loadedGames.push(gameId)
-                this.$nextTick(() => {
-                    const card = this.$el.querySelector(`[data-game="${gameId}"]`)
-                    if (card) card.classList.add('loaded')
-                })
-            }
-        })
-    },   
+createApp({
     data() {
         return {
-            loadedGames: [], // 新增数据项
             // 新增收藏夹
             favorites: [],
             isFavoriteModalActive: false,
