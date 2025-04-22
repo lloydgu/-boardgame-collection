@@ -3,7 +3,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            lazyLoadedGames: new reactive(new Set()), // 记录已加载的图片
+            lazyLoadedImages: new Set(), // 记录已加载的图片
             observer: null, // Intersection Observer实例
 
             // 新增收藏夹
