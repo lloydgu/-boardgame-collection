@@ -214,11 +214,7 @@ createApp({
         toggleSortOrder() {
             this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
         },
-        // 新增应用筛选方法
-        applyFilters() {
-            this.hasAppliedFilters = true;
-            this.filtersApplied = true;
-        },
+
             toggleSearch() {
             this.showSearch = !this.showSearch
             
