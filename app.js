@@ -321,11 +321,7 @@ createApp({
         // 数据加载
         async loadData() {
             try {
-                // ...数据加载逻辑
-                this.$nextTick(() => {
-                    const cards = this.$refs.cardElements;
-                    cards.forEach(card => this.observer.observe(card));
-                });
+
                 const response = await fetch('https://script.google.com/macros/s/AKfycbzA0L_ik5Ygjpk2uBWUL2BeRY9Ip66r73VwDIfKtV-NyDJmYB7m-OCgDkdu1Cy9XOOH/exec');
                 // 'https://sheetdb.io/api/v1/anwk6x0uukfcf'
                 if (!response.ok) throw new Error('数据加载失败');
