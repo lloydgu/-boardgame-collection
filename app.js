@@ -3,8 +3,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            lazyLoadedImages: {},  // 记录已加载的图片
-            observer: null, // Intersection Observer实例
+            loadedImages: new Set(), 
 
             // 新增收藏夹
             favorites: [],
@@ -51,7 +50,12 @@ createApp({
               const diffA = parseInt(a.难度);
               const diffB = parseInt(b.难度);
               return this.sortOrder === 'asc' ? diffA - diffB : diffB - diffA;
-            });
+            }).map(game => {
+                // 当游戏出现在筛选结果中时标记为需要加载
+                if (!this.loadedImages.has(game.名称)) {
+                    this.$set(this.loadedImages, game.名称, true)
+                }
+                return game});
           },
         
         // 组合过滤逻辑
@@ -129,22 +133,12 @@ createApp({
         }
     },
     methods: {
-        handleImageLoad(event) {
-            // 图片加载完成后移除观察
-            const img = event.target;
-            this.observer.unobserve(img.parentElement)
-          },
-        
-          // 在筛选应用后触发观察
-          applyFilters() {
-            this.$nextTick(() => {
-              const cards = this.$refs.cardElements;
-              cards.forEach(card => {
-                this.observer.observe(card)
-              })
-            })
-          },
-        
+        applyFilters() {
+            // 强制清空已加载记录
+            this.loadedImages.clear()
+            this.hasAppliedFilters = true
+            this.filtersApplied = true
+        },
         showFavorites() {
         this.isFavoriteModalActive = true
         
@@ -361,17 +355,7 @@ createApp({
     mounted() {
         this.loadFavorites();
         this.loadData();
-          // 初始化Intersection Observer
-          this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const gameName = entry.target.dataset.game
-                    this.$set(this.lazyLoadedImages, gameName, true) // 响应式更新
-                }
-            })
-        }, {
-            rootMargin: '0px 0px 200px 0px'
-        })
+
     },
     beforeUnmount() {
         // 清理观察器
