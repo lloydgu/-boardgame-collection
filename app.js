@@ -3,6 +3,7 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            isFilterApplied: false, // 新增属性
             // 新增收藏夹
             favorites: [],
             isFavoriteModalActive: false,
@@ -205,6 +206,7 @@ createApp({
         applyFilters() {
             this.hasAppliedFilters = true;
             this.filtersApplied = true;
+            this.isFilterApplied = true; // 设置为true以触发图片加载
         },
             toggleSearch() {
             this.showSearch = !this.showSearch

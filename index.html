@@ -157,10 +157,11 @@
                     @mouseleave="isHovered = false"
                 >
                     <img 
-                        :src="game.封面图URL" 
-                        :alt="game.名称" 
-                        class="game-cover"
+                    :src="isFilterApplied ? game.封面图URL : ''" 
+                    :alt="game.名称" 
+                    class="game-cover"
                     >
+                    
                     <div class="game-info">
                         <h3>{{ game.名称 }}</h3>
                         <div class="meta">
