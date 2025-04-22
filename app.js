@@ -3,6 +3,9 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
+            lazyLoadedImages: new Set(), // 记录已加载的图片
+            observer: null, // Intersection Observer实例
+
             // 新增收藏夹
             favorites: [],
             isFavoriteModalActive: false,
@@ -126,6 +129,21 @@ createApp({
         }
     },
     methods: {
+        handleImageLoad(event) {
+            // 图片加载完成后移除观察
+            const img = event.target
+            this.observer.unobserve(img.parentElement)
+          },
+        
+          // 在筛选应用后触发观察
+          applyFilters() {
+            this.$nextTick(() => {
+              const cards = this.$refs.cardElements
+              cards.forEach(card => {
+                this.observer.observe(card)
+              })
+            })
+          },
         
         showFavorites() {
         this.isFavoriteModalActive = true
@@ -339,6 +357,23 @@ createApp({
     mounted() {
         this.loadFavorites();
         this.loadData();
-    }
+          // 初始化Intersection Observer
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const gameName = entry.target.dataset.game
+                this.lazyLoadedImages.add(gameName)
+            }
+            })
+        }, {
+            rootMargin: '0px 0px 200px 0px' // 提前200px加载
+        })
+    },
+    beforeUnmount() {
+        // 清理观察器
+        if (this.observer) {
+          this.observer.disconnect()
+        }
+      }
 }).mount('#app');
 
