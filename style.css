@@ -1017,7 +1017,7 @@ body {
 
 @media (max-width: 768px) {
     .footer-note {
-        font-size: 0.6em;
+        font-size: 0.5em;
         padding: 15px 10px;
         line-height: 1.8;
     }
