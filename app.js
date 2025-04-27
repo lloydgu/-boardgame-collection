@@ -300,16 +300,6 @@ createApp({
             return this.splitTag(tag)[1];
         },
 
-        // 游戏可见性判断
-        isGameVisible(game) {
-            return Object.entries(this.selectedCategoryTags).every(([cat, tags]) => {
-                if (tags.size === 0) return true;
-                return game.标签.some(tag => {
-                    const [category, value] = this.splitTag(tag);
-                    return category === cat && tags.has(value);
-                });
-            });
-        },
 
         // 数据加载
         async loadData() {
