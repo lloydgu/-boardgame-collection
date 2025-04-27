@@ -1003,6 +1003,13 @@ body {
     vertical-align: baseline;
     margin-left: 4px;
   }
+  @media (max-width: 768px) {
+    .category-header .category-subtext {
+        font-size: 0.5em;
+
+        margin-left: 2px;
+      }
+    }
 
   /* 新增底部版权样式 */
 .footer-note {
@@ -1017,7 +1024,7 @@ body {
 
 @media (max-width: 768px) {
     .footer-note {
-        font-size: 0.5em;
+        font-size: 0.6em;
         padding: 15px 10px;
         line-height: 1.8;
     }
