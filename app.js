@@ -14,9 +14,9 @@ createApp({
             searchText: '',
             selectedTags: new Set(),
             categoryMap: {
-                weight: '<img src="image/卡比兽.png" class="category-icon" alt="重度"> 重度',
-                theme: '<img src="image/皮卡丘.png" class="category-icon" alt="主题"> 主题',
-                mechanic: '<img src="image/小磁怪.png" class="category-icon" alt="机制"> 机制',
+                weight: '<img src="image/卡比兽.png" class="category-icon" alt="重度"> 重度 <span class="category-subtext">（脑细胞阵亡or轻松摸鱼or...）</span>',
+                theme: '<img src="image/皮卡丘.png" class="category-icon" alt="主题"> 主题 <span class="category-subtext">(穿越指南：从古埃及到赛博精神病院)</span>',
+                mechanic: '<img src="image/小磁怪.png" class="category-icon" alt="机制"> 机制 <span class="category-subtext">(D20决定命运，工人占领厕所，嘴炮掀翻友谊)</span>',
                 other: '<img src="image/百变怪.png" class="category-icon" alt="其他"> 其他'
             },
             selectedCategoryTags: {

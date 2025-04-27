@@ -7,9 +7,10 @@
     <title>Y&L的桌游室</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/vue-virtual-scroller@2.3.0/dist/vue-virtual-scroller.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/vue-virtual-scroller/dist/vue-virtual-scroller.css">
 </head>
 <body>
     <div id="app">
@@ -150,12 +151,14 @@
             </div>
             <!-- 游戏列表 -->
             <div class="game-list" v-if="hasAppliedFilters">
-                <div 
-                    v-for="game in sortedGames"
-                    class="game-card"
-                    @mouseenter="isHovered = true"
-                    @mouseleave="isHovered = false"
-                >
+                    <!-- 虚拟滚动容器 -->
+                    <virtual-scroller 
+                        :items="filteredGames" 
+                        :item-height="120" 
+                        class="scroll-container"
+                    >
+                    <template v-slot="{ item }">
+                        <div class="game-card">
                     <img 
                     :src="isFilterApplied ? game.封面图URL : ''" 
                     :alt="game.名称" 
@@ -200,6 +203,8 @@
                     <i class="fas fa-heart"></i>
                     </button>
                 </div>
+                    </template>
+                </virtual-scroller>
                     
             </div>
 
@@ -207,9 +212,20 @@
                 想玩什么？让可达鸭帮你找找！
             </div>
 
+            <div v-if="isLoading" class="loading-placeholder">
+                <i class="fas fa-spinner fa-spin"></i>
+              </div>
+            </div>
+            
             <div v-if="potentialGameCount===0 && hasAppliedFilters" class="empty-state">
                 呜呜，找不到鸭...
             </div>
+
+        <!-- 新增底部版权信息 -->
+        <div class="footer-note">
+            © 2025 摸鱼桌游智库 · 您的精神离职申请已自动批准 · 本页加载用时约等于掀翻一局《UNO》所需时间<br>
+            苏SB备20250307号
+        </div>   
         <!-- 在搜索框下方添加人数筛选 -->
         <script src="app.js"></script>
         </div>
