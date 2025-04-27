@@ -392,14 +392,12 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    background:#c9d6ba;
+    background:#eeeeeebf;
     border-radius: 8px;
     transition: background 0.2s;
+    box-shadow: 0 4px 15px #666;
 }
 
-.category-header:hover {
-    background: #a5c186;
-}
 
 .toggle-icon {
     margin-left: auto;
@@ -539,7 +537,7 @@ body {
 
 /* 调整分类筛选区样式 */
 .category-filter {
-    background:#c9d6ba59;
+    background:#f2ecde00;
 
 }
 
