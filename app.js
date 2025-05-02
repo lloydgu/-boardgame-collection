@@ -300,13 +300,23 @@ createApp({
             return this.splitTag(tag)[1];
         },
 
+        // 游戏可见性判断
+        isGameVisible(game) {
+            return Object.entries(this.selectedCategoryTags).every(([cat, tags]) => {
+                if (tags.size === 0) return true;
+                return game.标签.some(tag => {
+                    const [category, value] = this.splitTag(tag);
+                    return category === cat && tags.has(value);
+                });
+            });
+        },
 
         // 数据加载
         async loadData() {
             try {
                 
-                const response = await fetch('https://script.google.com/macros/s/AKfycbzA0L_ik5Ygjpk2uBWUL2BeRY9Ip66r73VwDIfKtV-NyDJmYB7m-OCgDkdu1Cy9XOOH/exec');
-                // 'https://sheetdb.io/api/v1/anwk6x0uukfcf'
+                const response = await fetch('https://sheetdb.io/api/v1/anwk6x0uukfcf');
+                // 'https://script.google.com/macros/s/AKfycbzA0L_ik5Ygjpk2uBWUL2BeRY9Ip66r73VwDIfKtV-NyDJmYB7m-OCgDkdu1Cy9XOOH/exec'
                 if (!response.ok) throw new Error('数据加载失败');
                 
                 const rawData = await response.json();
